@@ -37,9 +37,9 @@ body{min-height:100vh;padding-bottom:60px}
 .mh-logo{flex-shrink:0;display:flex;align-items:center}
 .mh-logo img{height:36px;width:auto;display:block}
 .mh-title{
-  font-family:'IBM Plex Sans',sans-serif;
-  font-size:17px;font-weight:700;letter-spacing:.01em;
-  color:var(--ms-navy);white-space:nowrap;
+  font-family:'Instrument Serif',serif;
+  font-size:26px;font-weight:400;letter-spacing:-.01em;
+  color:var(--ms-navy);white-space:nowrap;line-height:1.1;
 }
 .reset-btn{
   flex-shrink:0;font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:700;
@@ -117,17 +117,16 @@ body.tool-mode .view{padding:0}
 
 /* column titles */
 .col-header{
-  font-family:'IBM Plex Sans',sans-serif;font-size:12px;font-weight:700;
+  font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:700;
   text-transform:uppercase;letter-spacing:.18em;
-  padding:14px 20px;margin-bottom:0;position:sticky;top:0;z-index:5;
+  padding:12px 20px;margin-bottom:0;position:sticky;top:0;z-index:5;
   display:flex;align-items:center;gap:10px;
-  border-bottom:1px solid var(--line);
 }
-.col-header::before{content:'';width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.col-header-inputs{background:#FFFFFF;color:var(--ms-navy)}
+.col-header::before{content:'';width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.col-header-inputs{background:var(--ms-navy);color:#fff}
 .col-header-inputs::before{background:var(--ms-lime)}
-.col-header-results{background:#FAFBF9;color:var(--ms-navy)}
-.col-header-results::before{background:var(--ms-blue)}
+.col-header-results{background:var(--ms-blue);color:#fff}
+.col-header-results::before{background:var(--ms-lime)}
 
 .tool-col-inputs > :not(.col-header){margin-left:16px;margin-right:16px}
 .col-body-pad{padding:14px 16px 16px}
@@ -148,6 +147,13 @@ body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14p
 
 .param-block{padding:20px 22px 18px;border-bottom:1px solid var(--line-soft)}
 .param-block:last-child{border-bottom:none}
+/* color-coded left border per module */
+.param-block[data-module]{border-left:4px solid var(--mod-color, var(--line))}
+.param-block[data-module="a1"]{--mod-color:var(--a1)}
+.param-block[data-module="a2"]{--mod-color:var(--a2)}
+.param-block[data-module="a3"]{--mod-color:var(--a3)}
+.param-block[data-module="a4"]{--mod-color:var(--a4)}
+.param-block[data-module="a5"]{--mod-color:var(--a5)}
 
 /* ── slider controls ── */
 .ctrl{margin-bottom:18px}.ctrl:last-child{margin-bottom:0}
@@ -176,9 +182,6 @@ input[type="range"]::-webkit-slider-thumb{
   box-shadow:0 0 0 2px var(--ms-blue);cursor:grab;
   animation:thumbPulse 2s ease-in-out infinite;
 }
-input[type="range"]:hover::-webkit-slider-thumb,
-input[type="range"]:active::-webkit-slider-thumb,
-input[type="range"]:focus::-webkit-slider-thumb{animation:none}
 input[type="range"]::-webkit-slider-thumb:active{cursor:grabbing;transform:scale(1.12)}
 input[type="range"]::-moz-range-thumb{
   width:17px;height:17px;border-radius:50%;
@@ -186,8 +189,6 @@ input[type="range"]::-moz-range-thumb{
   box-shadow:0 0 0 2px var(--ms-blue);cursor:grab;
   animation:thumbPulse 2s ease-in-out infinite;
 }
-input[type="range"]:hover::-moz-range-thumb,
-input[type="range"]:active::-moz-range-thumb{animation:none}
 .range-hint{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;color:var(--ms-blue);margin-top:4px}
 .slider-help{font-size:11px;color:var(--ms-blue);margin-top:3px;font-style:italic}
 
@@ -379,8 +380,8 @@ select:focus,
 .mod-bar-colhead{display:flex;align-items:flex-end;gap:10px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--line)}
 .mbc-head{flex-shrink:0;width:172px}
 .mbc-track{flex:1}
-.mbc-val{flex-shrink:0;width:72px;text-align:right;font-size:10px;font-weight:700;letter-spacing:.02em;color:var(--ink-soft);line-height:1.2}
-.mbc-pct{flex-shrink:0;width:42px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);line-height:1.2}
+.mbc-val{flex-shrink:0;width:90px;text-align:right;font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--ms-navy);line-height:1.2}
+.mbc-pct{flex-shrink:0;width:60px;text-align:right;font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--ms-navy);line-height:1.2}
 .stage-bar{display:flex;height:24px;border:1px solid var(--ms-navy);overflow:hidden;margin-bottom:4px}
 
 .mod-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
@@ -389,8 +390,8 @@ select:focus,
 .mod-bar-name{font-size:12px;font-weight:600;color:var(--ms-navy);line-height:1.2}
 .mod-bar-track{flex:1;height:18px;background:var(--line-soft);border-radius:3px;overflow:hidden;position:relative}
 .mod-bar-fill{height:100%;border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1);min-width:2px}
-.mod-bar-val{flex-shrink:0;width:72px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:var(--ms-navy);font-variant-numeric:tabular-nums}
-.mod-bar-pct{flex-shrink:0;width:42px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--ms-blue);font-variant-numeric:tabular-nums}
+.mod-bar-val{flex-shrink:0;width:90px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:var(--ms-navy);font-variant-numeric:tabular-nums}
+.mod-bar-pct{flex-shrink:0;width:60px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--ms-blue);font-variant-numeric:tabular-nums}
 .legend{display:flex;flex-wrap:wrap;gap:9px 14px;font-size:11px;color:var(--ink-soft)}
 .leg{display:flex;align-items:center;gap:5px}
 .leg-dot{width:9px;height:9px;flex-shrink:0;border-radius:2px}
@@ -514,7 +515,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
         </div>
 
         <!-- RAW MATERIALS -->
-        <div class="param-block">
+        <div class="param-block" data-module="a1">
           <div class="sec-strip mod-a1">
             <span class="sec-strip-label">Raw Materials (A1)</span>
             <span class="sec-strip-line"></span>
@@ -534,7 +535,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
         </div>
 
         <!-- TRANSPORT (A2) -->
-        <div class="param-block">
+        <div class="param-block" data-module="a2">
           <div class="sec-strip mod-a2">
             <span class="sec-strip-label">Raw Material Transport (A2)</span>
             <span class="sec-strip-line"></span>
@@ -545,7 +546,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
         </div>
 
         <!-- MANUFACTURING (A3) -->
-        <div class="param-block">
+        <div class="param-block" data-module="a3">
           <div class="sec-strip mod-a3">
             <span class="sec-strip-label">Manufacturing (A3)</span>
             <span class="sec-strip-line"></span>
@@ -625,7 +626,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
         </div>
 
         <!-- LOGISTICS -->
-        <div class="param-block">
+        <div class="param-block" data-module="a4">
           <div class="sec-strip mod-a4">
             <span class="sec-strip-label">Product Transport (A4)</span>
             <span class="sec-strip-line"></span>
@@ -642,7 +643,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
         </div>
 
         <!-- INSTALLATION (A5) -->
-        <div class="param-block">
+        <div class="param-block" data-module="a5">
           <div class="sec-strip">
             <span class="sec-strip-label">Installation (A5)</span>
             <span class="sec-strip-line"></span>
@@ -677,7 +678,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
               </span>
               <span style="text-align:right">
                 <span class="a4-val" id="r-a4">—</span>
-                <span class="a4-note">beyond the A1–A3 boundary</span>
+                <span class="a4-note">kgCO₂e / m³</span>
               </span>
             </div>
             <div class="a4-row">
@@ -687,7 +688,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
               </span>
               <span style="text-align:right">
                 <span class="a4-val" id="r-a5">—</span>
-                <span class="a4-note">beyond the A1–A3 boundary</span>
+                <span class="a4-note">kgCO₂e / m³</span>
               </span>
             </div>
           </div>
@@ -899,7 +900,7 @@ function renderRmSliders() {
     div.style.cssText = 'border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:#FAFBF9';
     div.innerHTML = `
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ms-blue);flex-shrink:0">Raw Material ${i+1} · A1</span>
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ms-blue);flex-shrink:0">Raw Material ${i+1}</span>
         <input type="text" class="rm-name-inp" data-idx="${i}"
           value="${escH(rm.name)}"
           placeholder="Insert raw material name here"
@@ -936,7 +937,6 @@ function renderTransport(){
     row.className = 'tp-row';
     const label = (rm.name && rm.name.trim()) ? rm.name : `Raw Material ${i+1}`;
     row.innerHTML = `
-      <span class="tp-tag">RM ${i+1}</span>
       <span class="tp-name" title="${escH(label)}">${escH(label)}</span>
       <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Insert distance (km)"/>
       <span class="tp-unit">km</span>
