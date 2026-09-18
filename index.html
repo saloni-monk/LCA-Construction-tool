@@ -3,21 +3,20 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>LCA Sensitivity Tool — Monk Spaces</title>
+<title>Construction LCA Tool — Monk Spaces</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#EEF1EC; --card:#FFFFFF; --ink:#1F2D3D;
+  --bg:#F7F8F6; --card:#FFFFFF; --ink:#1F2D3D;
   --ink-soft:#2E4F75; --ink-faint:#8CA0B2;
-  --line:#DDE3DC; --line-soft:#EAEEE7;
-  --ms-blue:#2E4F75;    /* Monk Spaces logo blue */
-  --ms-navy:#213A57;    /* deeper shade of logo blue */
-  --ms-lime:#B7CB32;    /* Monk Spaces logo lime */
+  --line:#E2E6E0; --line-soft:#F0F2EE;
+  --ms-blue:#2E4F75;
+  --ms-navy:#213A57;
+  --ms-lime:#B7CB32;
   --ms-lime-soft:#EAF0C8;
   --good:#4A8C5A; --warn:#C0433B;
-  /* per-module accent colours (only place colour varies) */
   --a1:#213A57; --a2:#2E4F75; --a3:#4E7C7A;
   --a4:#7A9C4E; --a5:#B7CB32; --stgC:#B0846A; --stgD:#B7CB32;
 }
@@ -25,176 +24,100 @@
 html,body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.55}
 body{min-height:100vh;padding-bottom:60px}
 
-/* ══ TOPBAR ══════════════════════════════════════ */
-.topbar{
+/* ══ MASTHEAD — white, clean ══ */
+.masthead{
   background:#FFFFFF;
   border-bottom:3px solid var(--ms-lime);
-  padding:10px 28px;
-  display:flex;align-items:center;gap:16px;
+  margin-bottom:0;overflow:hidden;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:0 28px;height:64px;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
 }
-.topbar-logo{height:38px;object-fit:contain;display:block}
-.topbar-sep{width:1px;height:30px;background:var(--line);flex-shrink:0}
-.topbar-label{font-size:13px;font-weight:600;color:var(--ms-blue);letter-spacing:.04em;text-transform:uppercase}
+.mh-brand{display:flex;align-items:center;gap:14px;min-width:0}
+.mh-logo{flex-shrink:0;display:flex;align-items:center}
+.mh-logo svg{display:block}
+.mh-title{
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:17px;font-weight:700;letter-spacing:.01em;
+  color:var(--ms-navy);white-space:nowrap;
+}
+.reset-btn{
+  flex-shrink:0;font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;padding:8px 18px;
+  border:2px solid var(--ms-navy);background:#FFFFFF;color:var(--ms-navy);
+  cursor:pointer;transition:all .15s;white-space:nowrap;border-radius:4px;
+}
+.reset-btn:hover{background:var(--ms-navy);color:#fff}
+
+.mh-actions{display:flex;align-items:center;gap:16px;flex-shrink:0}
 
 .container{max-width:1160px;margin:0 auto;padding:0 24px}
 body.tool-mode .container{max-width:100%;padding:0}
 .view{display:none}.view.active{display:block}
 
-/* ══ LANDING ═════════════════════════════════════ */
-.hero{padding:48px 0 44px;border-bottom:1px solid var(--line);margin-bottom:44px}
-.hero-tag{
-  display:inline-block;
-  background:var(--ms-blue);color:#fff;
-  font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  padding:5px 14px;margin-bottom:18px;
-}
-.hero-title{
-  font-family:'Instrument Serif',serif;font-weight:400;
-  font-size:clamp(36px,5vw,60px);line-height:1.05;letter-spacing:-.015em;
-  max-width:780px;margin-bottom:18px;color:var(--ms-navy);
-}
-.hero-title em{font-style:italic;color:var(--ms-blue)}
-.hero-sub{font-size:15px;color:var(--ink-soft);max-width:580px;line-height:1.65}
-
-/* product cards on landing */
-.landing-cards{display:grid;grid-template-columns:1fr;max-width:560px;gap:0;margin-bottom:40px}
-.l-card{
-  background:var(--card);
-  border:1.5px solid var(--line);
-  padding:30px 28px 26px;
-  cursor:pointer;
-  transition:all .2s ease;
-  position:relative;
-  display:flex;flex-direction:column;
-  gap:10px;
-}
-.l-card::after{
-  content:'';position:absolute;
-  top:0;left:0;width:0;height:4px;
-  background:var(--ms-lime);
-  transition:width .25s ease;
-}
-.l-card:hover{border-color:var(--ms-blue);transform:translateY(-2px);box-shadow:0 6px 24px rgba(61,90,128,.12)}
-.l-card:hover::after{width:100%}
-.l-card-icon{width:52px;height:52px;color:var(--ms-blue)}
-.l-card-icon svg{width:100%;height:100%}
-.l-card-title{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--ms-navy)}
-.l-card-desc{font-size:14px;color:var(--ink-soft);line-height:1.55}
-.l-card-cta{
-  display:flex;align-items:center;gap:8px;
-  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ms-blue);margin-top:6px;
-}
-.l-card-cta-arrow{font-size:18px;transition:transform .2s}
-.l-card:hover .l-card-cta-arrow{transform:translateX(6px)}
-
-.landing-note{font-size:11px;color:var(--ink-faint);line-height:1.65;border-top:1px solid var(--line);padding-top:16px;max-width:760px}
-
-/* ══ SECTION HEADING STRIPS ══════════════════════ */
+/* ══ SECTION HEADING STRIPS ══ */
 .sec-strip{
   display:flex;align-items:center;gap:0;
   margin-bottom:16px;
 }
 .sec-strip-label{
-  background:var(--ms-blue);
-  color:#fff;
-  font-size:11px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.14em;
-  padding:6px 14px;border-radius:3px;
+  color:var(--ms-navy);
+  font-size:13px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;
   flex-shrink:0;
 }
-.sec-strip-line{flex:1;height:1px;background:var(--line);margin-left:2px}
+.sec-strip-line{flex:1;height:1px;background:var(--line);margin-left:12px}
 .sec-strip .info-ic{margin-left:10px}
 
-/* section headings standardised to brand blue — module colour lives only in results */
-.sec-strip .sec-strip-label{background:var(--ms-blue);color:#fff}
-.sec-strip .sec-strip-line{background:var(--line)}
-.sec-strip .info-ic{border-color:var(--ms-blue);color:var(--ms-blue)}
-
-/* ══ TOOL VIEW ═══════════════════════════════════ */
-/* ══ MASTHEAD ══════════════════════════════════ */
-.masthead{
-  background:var(--ms-navy);border-bottom:3px solid var(--ms-lime);
-  margin-bottom:0;overflow:hidden;
-  display:flex;align-items:center;justify-content:space-between;gap:24px;
-  padding:0 24px;height:70px;
-}
-.mh-brand{display:flex;align-items:center;gap:22px;min-width:0}
-.mh-mark{display:flex;align-items:center;gap:13px;min-width:0}
-.mh-dot{flex-shrink:0;width:36px;height:36px;border-radius:50%;position:relative;
-  background:conic-gradient(var(--ms-blue) 0deg 175deg, transparent 175deg 185deg, var(--ms-lime) 185deg 360deg);}
-.mh-dot::after{content:'';position:absolute;inset:8px;border-radius:50%;background:var(--ms-navy)}
-.mh-words{display:flex;flex-direction:column;gap:1px;min-width:0}
-.mh-name{font-family:'Instrument Serif',serif;font-weight:400;font-size:27px;line-height:1.05;color:#fff;letter-spacing:.01em;white-space:nowrap}
-.mh-name em{font-style:italic;color:var(--ms-lime)}
-.mh-tag{display:none}
-.reset-btn{
-  flex-shrink:0;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:700;
-  letter-spacing:.06em;text-transform:uppercase;padding:7px 14px;
-  border:1px solid rgba(255,255,255,.3);background:transparent;color:rgba(255,255,255,.8);
-  cursor:pointer;transition:all .15s;white-space:nowrap;border-radius:3px;
-}
-.reset-btn:hover{background:var(--ms-lime);border-color:var(--ms-lime);color:var(--ms-navy)}
-
-/* stage rail — inline in the masthead */
-.mh-rail{display:flex;align-items:center;gap:5px;flex:0 1 auto;overflow:hidden}
-.rail-step{display:flex;align-items:center;gap:8px;flex:0 0 auto}
-.rail-ic{flex-shrink:0;width:28px;height:28px;border-radius:7px;background:var(--c);color:#fff;display:flex;align-items:center;justify-content:center}
-.rail-ic svg{width:15px;height:15px}
-.rail-txt{font-size:10.5px;line-height:1.15;color:rgba(255,255,255,.82);font-weight:600;white-space:nowrap}
-.rail-txt b{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--ms-lime);font-weight:700}
-.rail-arrow{flex-shrink:0;color:rgba(255,255,255,.28);font-size:13px}
-.mh-actions{display:flex;align-items:center;gap:16px;flex-shrink:0}
-@media(max-width:1240px){.rail-txt{display:none}}
-@media(max-width:880px){.mh-rail{display:none}}
-
+/* ══ TOOL VIEW ══ */
 .tool-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:0;align-items:start;
   padding:14px;
 }
-/* each column is a strong bordered card */
 .tool-col-inputs,.tool-col-results{
   background:var(--card);
   border:1px solid var(--line);
 }
 .tool-col-inputs{
   border-right:none;
-  border-radius:8px 0 0 8px;
+  border-radius:10px 0 0 10px;
   height:var(--tool-h, calc(100vh - 92px));
   overflow-y:auto;overflow-x:hidden;
   scrollbar-width:thin;scrollbar-color:var(--ms-blue) var(--line-soft);
 }
-.tool-col-inputs::-webkit-scrollbar{width:9px}
+.tool-col-inputs::-webkit-scrollbar{width:8px}
 .tool-col-inputs::-webkit-scrollbar-track{background:var(--line-soft)}
 .tool-col-inputs::-webkit-scrollbar-thumb{background:var(--ms-blue);border-radius:5px}
 .tool-col-results{
-  border-radius:0 8px 8px 0;
+  border-radius:0 10px 10px 0;
   position:sticky;top:0;
   max-height:var(--tool-h, calc(100vh - 92px));
   overflow-y:auto;
   scrollbar-width:thin;scrollbar-color:var(--ms-blue) var(--line-soft);
 }
-.tool-col-results::-webkit-scrollbar{width:9px}
+.tool-col-results::-webkit-scrollbar{width:8px}
 .tool-col-results::-webkit-scrollbar-track{background:var(--line-soft)}
 .tool-col-results::-webkit-scrollbar-thumb{background:var(--ms-blue);border-radius:5px}
 
-/* On the tool view, lock the page so only the columns scroll */
 body.tool-mode{padding-bottom:0;overflow:hidden}
 body.tool-mode .view{padding:0}
 
-/* column titles — prominent header bars */
+/* column titles */
 .col-header{
-  font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.2em;color:#fff;
-  padding:12px 20px;margin-bottom:0;position:sticky;top:0;z-index:5;
+  font-family:'IBM Plex Sans',sans-serif;font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.18em;
+  padding:14px 20px;margin-bottom:0;position:sticky;top:0;z-index:5;
   display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid var(--line);
 }
-.col-header::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ms-lime);flex-shrink:0}
-.col-header-inputs{background:var(--ms-blue)}
-.col-header-results{background:var(--ms-navy)}
-/* content padding inside columns */
+.col-header::before{content:'';width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.col-header-inputs{background:#FFFFFF;color:var(--ms-navy)}
+.col-header-inputs::before{background:var(--ms-lime)}
+.col-header-results{background:#FAFBF9;color:var(--ms-navy)}
+.col-header-results::before{background:var(--ms-blue)}
+
 .tool-col-inputs > :not(.col-header){margin-left:16px;margin-right:16px}
 .col-body-pad{padding:14px 16px 16px}
 body.tool-mode .tool-col-inputs > .panel{border:none;margin-top:14px !important}
@@ -203,14 +126,14 @@ body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14p
 @media(max-width:920px){
   .tool-grid{grid-template-columns:1fr;padding:10px;gap:10px}
   body.tool-mode{overflow:auto;padding-bottom:60px}
-  .tool-col-inputs{height:auto;overflow:visible;border-right:1px solid var(--line);border-radius:8px}
-  .tool-col-results{position:static;max-height:none;overflow:visible;border-radius:8px}
+  .tool-col-inputs{height:auto;overflow:visible;border-right:1px solid var(--line);border-radius:10px}
+  .tool-col-results{position:static;max-height:none;overflow:visible;border-radius:10px}
   .results-panel{max-height:none;display:block}
   .results-scroll{overflow:visible;flex:none}
 }
 
-/* ══ INPUT PANEL ══════════════════════════════════ */
-.panel{background:var(--card);border:1px solid var(--line)}
+/* ══ INPUT PANEL ══ */
+.panel{background:var(--card)}
 
 .param-block{padding:20px 22px 18px;border-bottom:1px solid var(--line-soft)}
 .param-block:last-child{border-bottom:none}
@@ -223,13 +146,13 @@ body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14p
   font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
   background:var(--ms-blue);color:#fff;
   padding:2px 10px;min-width:70px;text-align:center;
-  font-variant-numeric:tabular-nums;
+  font-variant-numeric:tabular-nums;border-radius:3px;
 }
 input[type="range"]{
   -webkit-appearance:none;appearance:none;
   width:100%;height:5px;
   background:linear-gradient(to right, var(--ms-lime) 0%, var(--ms-lime) var(--pct,50%), var(--line) var(--pct,50%));
-  outline:none;cursor:pointer;margin:4px 0 2px;
+  outline:none;cursor:pointer;margin:4px 0 2px;border-radius:3px;
 }
 @keyframes thumbPulse{
   0%,100%{box-shadow:0 0 0 2px var(--ms-blue), 0 0 0 4px rgba(81,105,133,.35)}
@@ -260,13 +183,17 @@ input[type="range"]:active::-moz-range-thumb{animation:none}
 /* ══ A2 TRANSPORT ROWS ══ */
 .tp-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
 .tp-row:last-child{border-bottom:none}
-.tp-tag{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;color:#fff;background:var(--a2);padding:2px 6px}
+.tp-tag{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;color:#fff;background:var(--a2);padding:2px 6px;border-radius:2px}
 .tp-head{display:flex;align-items:center;gap:8px;margin-bottom:7px}
 .tp-name{flex:1;font-size:13px;font-weight:600;color:var(--ms-navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tp-input-wrap{display:flex;align-items:center;gap:8px}
-.tp-row .rm-km-inp{flex-shrink:0;width:68px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;text-align:right;padding:5px 8px;border:1.5px solid var(--ms-lime);border-radius:4px;background:rgba(197,209,46,.10);color:var(--ms-navy);outline:none}
+.tp-row .rm-km-inp{
+  flex-shrink:0;width:140px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;
+  text-align:right;padding:7px 10px;border:1.5px solid var(--ms-lime);border-radius:5px;
+  background:rgba(197,209,46,.10);color:var(--ms-navy);outline:none;
+}
 .tp-row .rm-km-inp:focus{background:#fff;outline:2px solid var(--ms-blue)}
-.tp-row .rm-km-inp::placeholder{font-weight:400;color:var(--ink-faint);font-size:11px}
+.tp-row .rm-km-inp::placeholder{font-weight:400;color:var(--ink-faint);font-size:11px;text-align:left}
 .tp-unit{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--ink-soft)}
 
 /* ══ INFO (i) ICON + TOOLTIP ══ */
@@ -275,30 +202,42 @@ input[type="range"]:active::-moz-range-thumb{animation:none}
   width:15px;height:15px;border-radius:50%;
   border:1.4px solid var(--ms-blue);color:var(--ms-blue);
   font-size:10px;font-weight:700;font-style:italic;font-family:'Instrument Serif',serif;
-  cursor:help;position:relative;flex-shrink:0;line-height:1;
-  vertical-align:middle;
+  cursor:default;position:relative;flex-shrink:0;line-height:1;
+  vertical-align:middle;pointer-events:auto;
 }
-.info-ic:hover,.info-ic:focus{background:var(--ms-blue);color:#fff;outline:none}
+.info-ic:hover{background:var(--ms-blue);color:#fff;outline:none}
 .info-tip{
-  position:absolute;bottom:calc(100% + 8px);right:-6px;left:auto;transform:none;
-  width:230px;max-width:240px;
+  position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
+  width:250px;max-width:280px;
   background:var(--ms-navy);color:#fff;
-  font-size:11.5px;font-weight:400;font-style:normal;line-height:1.5;
+  font-size:11.5px;font-weight:400;font-style:normal;line-height:1.55;
   font-family:'IBM Plex Sans',sans-serif;letter-spacing:0;
   text-transform:none;text-align:left;
-  padding:9px 11px;border-radius:6px;
+  padding:10px 13px;border-radius:8px;
   opacity:0;visibility:hidden;transition:opacity .15s;
-  z-index:50;pointer-events:none;
-  box-shadow:0 6px 20px rgba(26,43,61,.28);
+  z-index:999;pointer-events:none;
+  box-shadow:0 8px 24px rgba(26,43,61,.22);
 }
 .info-tip::after{
-  content:'';position:absolute;top:100%;right:10px;left:auto;transform:none;
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
   border:6px solid transparent;border-top-color:var(--ms-navy);
 }
-.info-ic:hover .info-tip,.info-ic:focus .info-tip{opacity:1;visibility:visible}
+.info-ic:hover .info-tip{opacity:1;visibility:visible}
+
+/* Tooltip that opens DOWNWARD */
+.tip-down .info-tip{bottom:auto;top:calc(100% + 10px)}
+.tip-down .info-tip::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--ms-navy)}
+
+/* Tooltip that opens to the LEFT (for right-edge icons) */
+.tip-left .info-tip{left:auto;right:0;transform:none}
+.tip-left .info-tip::after{left:auto;right:10px;transform:none}
+
+/* Tooltip that opens to the RIGHT (for left-edge icons) */
+.tip-right .info-tip{left:0;right:auto;transform:none}
+.tip-right .info-tip::after{left:10px;right:auto;transform:none}
 
 /* ══ RAW MATERIAL TOTAL STATUS BANNER ══ */
-.rm-status{margin-top:12px;border:1.5px solid var(--line);border-radius:6px;padding:10px 12px;background:var(--line-soft);transition:all .15s}
+.rm-status{margin-top:12px;border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--line-soft);transition:all .15s}
 .rm-status-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px}
 .rm-status-label{font-size:12px;font-weight:600;color:var(--ms-navy);display:flex;align-items:center;gap:6px}
 .rm-status-total{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--ms-navy);font-variant-numeric:tabular-nums;flex-shrink:0}
@@ -306,7 +245,6 @@ input[type="range"]:active::-moz-range-thumb{animation:none}
 .rm-status-fill{height:100%;background:var(--ms-lime);border-radius:4px;transition:width .25s,background .15s}
 .rm-status-msg{font-size:11.5px;margin-top:7px;line-height:1.3}
 .rm-status-msg b{font-weight:700}
-/* states */
 .rm-status[data-state="ok"]{border-color:var(--good);background:rgba(74,140,90,.07)}
 .rm-status[data-state="ok"] .rm-status-msg{color:var(--good)}
 .rm-status[data-state="under"]{border-color:#D98A2B;background:rgba(217,138,43,.08)}
@@ -319,33 +257,28 @@ input[type="range"]:active::-moz-range-thumb{animation:none}
 .rm-status[data-state="over"] .rm-status-total{color:var(--warn)}
 @keyframes overPulse{0%,100%{box-shadow:0 0 0 0 rgba(192,67,59,0)}50%{box-shadow:0 0 0 3px rgba(192,67,59,.18)}}
 
-/* Tooltip that opens DOWNWARD (for icons near the top of the page) */
-.tip-down .info-tip{bottom:auto;top:calc(100% + 8px)}
-.tip-down .info-tip::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--ms-navy)}
-
-/* ══ RESULTS: no scroll — everything in one view ══ */
+/* ══ RESULTS ══ */
 .results-panel{background:var(--card);overflow:hidden}
 .results-fixed,.results-scroll{display:block}
 .table-sec{padding:6px 22px 16px}
 
-/* ══ COMPACT MODE (tool view only) — fit more in one view ══ */
-body.tool-mode .param-block{padding:11px 16px 9px}
-body.tool-mode .sec-strip{margin-bottom:9px}
-body.tool-mode .ctrl{margin-bottom:9px}
-body.tool-mode .ctrl-row{margin-bottom:2px}
-body.tool-mode .slider-help{display:none}           /* thumb already signals drag */
+/* ══ COMPACT MODE ══ */
+body.tool-mode .param-block{padding:14px 18px 12px}
+body.tool-mode .sec-strip{margin-bottom:10px}
+body.tool-mode .ctrl{margin-bottom:10px}
+body.tool-mode .ctrl-row{margin-bottom:3px}
+body.tool-mode .slider-help{display:none}
 body.tool-mode input[type="range"]{margin:2px 0 1px}
-body.tool-mode .elec-box{padding:10px 12px}
+body.tool-mode .elec-box{padding:12px 14px}
 body.tool-mode .elec-top{margin-bottom:8px}
-body.tool-mode .solar-sep{margin:9px 0 7px}
+body.tool-mode .solar-sep{margin:10px 0 8px}
 body.tool-mode .gel-section{margin-top:8px}
 body.tool-mode .range-hint{margin-top:2px}
 body.tool-mode .panel[style*="margin-bottom:18px"]{margin-bottom:10px !important}
 body.tool-mode .panel{margin-bottom:10px}
-body.tool-mode select{padding:7px 12px;padding-right:32px}
+body.tool-mode select{padding:8px 12px;padding-right:32px}
 body.tool-mode footer{margin-top:18px;padding:10px 0}
 
-/* pair short sections side by side to use horizontal space */
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:0}
 .pair > .param-block{border-bottom:1px solid var(--line-soft)}
 .pair > .param-block:first-child{border-right:1px solid var(--line-soft)}
@@ -353,7 +286,7 @@ body.tool-mode footer{margin-top:18px;padding:10px 0}
 
 select{
   font-family:'IBM Plex Sans',sans-serif;font-size:13px;color:var(--ink);
-  padding:9px 12px;border:1.5px solid var(--line);background:var(--card);
+  padding:9px 12px;border:1.5px solid var(--line);border-radius:5px;background:var(--card);
   cursor:pointer;width:100%;margin-top:4px;
   -webkit-appearance:none;appearance:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233D5A80' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
@@ -364,27 +297,24 @@ select:focus{outline:2px solid var(--ms-blue);outline-offset:0}
 
 .select-lbl{font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px;display:block}
 
-/* ══ EDITABLE-FIELD AFFORDANCE ══
-   Every field the user can type into / pick from gets a lime-tinted box so it
-   reads as "editable", matching the legend at the top of the tool. */
+/* Editable field affordance */
 select,
 .solar-kw-input,
 .rm-name-inp,
 .rm-km-inp{
-  background-color:rgba(197,209,46,.10) !important;
+  background-color:rgba(197,209,46,.08) !important;
   border-color:var(--ms-lime) !important;
 }
 select:hover,
 .solar-kw-input:hover,
-.rm-name-inp:hover{background-color:rgba(197,209,46,.18) !important}
+.rm-name-inp:hover{background-color:rgba(197,209,46,.15) !important}
 select:focus,
 .solar-kw-input:focus,
 .rm-name-inp:focus{outline:2px solid var(--ms-blue) !important;background-color:#fff !important}
-/* the raw-material name field is borderless dashed by default; make it read as editable too */
-.rm-name-inp{border:1.5px solid var(--ms-lime) !important;border-radius:4px;padding:5px 8px !important}
+.rm-name-inp{border:1.5px solid var(--ms-lime) !important;border-radius:5px;padding:5px 8px !important}
 
-/* ══ ELECTRICITY SECTION ════════════════════════ */
-.elec-box{background:var(--bg);border:1px solid var(--line);padding:16px 18px}
+/* ══ ELECTRICITY SECTION ══ */
+.elec-box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
 .elec-top{display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .elec-icon{color:var(--ms-lime);flex-shrink:0}
 .elec-title{font-size:15px;font-weight:700;color:var(--ms-navy)}
@@ -397,7 +327,7 @@ select:focus,
 }
 .elec-range-info{
   background:rgba(197,209,46,.14);border:1px solid rgba(197,209,46,.5);
-  padding:8px 12px;font-size:12px;color:#5a6200;margin-top:8px;line-height:1.5;
+  padding:8px 12px;border-radius:5px;font-size:12px;color:#5a6200;margin-top:8px;line-height:1.5;
 }
 .elec-range-info strong{font-weight:700;color:var(--ms-navy)}
 
@@ -413,20 +343,20 @@ select:focus,
 .solar-kw-lbl{font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px}
 .solar-kw-input{
   font-family:'IBM Plex Mono',monospace;font-size:14px;
-  background:rgba(197,209,46,.08);border:1.5px solid var(--line);
+  background:rgba(197,209,46,.08);border:1.5px solid var(--line);border-radius:5px;
   padding:9px 12px;width:100%;outline:none;color:var(--ink);
 }
 .solar-kw-input:focus{outline:2px solid var(--ms-blue)}
 .solar-assume{font-size:11px;color:var(--ink-faint);margin-top:4px}
 
-.solar-contrib{display:none;margin-top:12px;background:rgba(39,174,96,.07);border:1px solid rgba(39,174,96,.3);padding:12px 14px}
+.solar-contrib{display:none;margin-top:12px;background:rgba(39,174,96,.07);border:1px solid rgba(39,174,96,.3);border-radius:6px;padding:12px 14px}
 .solar-contrib.show{display:block}
 .sc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .sc-title{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ms-navy)}
 .sc-pct{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:#1a7a3a}
 .sc-full{font-size:12px;font-weight:700;color:#1a7a3a}
-.sc-bar-track{height:8px;background:#d4edda;margin-bottom:7px}
-.sc-bar-fill{height:100%;background:#27ae60;transition:width .4s ease}
+.sc-bar-track{height:8px;background:#d4edda;border-radius:4px;margin-bottom:7px}
+.sc-bar-fill{height:100%;background:#27ae60;border-radius:4px;transition:width .4s ease}
 .sc-detail{font-size:11px;color:var(--ink-soft)}
 
 .gel-section{margin-top:14px}
@@ -434,16 +364,14 @@ select:focus,
 .gel-display{
   font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;
   color:var(--ms-blue);background:rgba(61,90,128,.07);
-  border:2px solid var(--ms-blue);padding:10px 14px;width:100%;
+  border:2px solid var(--ms-blue);border-radius:5px;padding:10px 14px;width:100%;
   outline:none;cursor:default;display:block;
 }
 .gel-note{font-size:11px;color:var(--ink-faint);margin-top:5px}
 
-/* ══ RESULTS PANEL ════════════════════════════════ */
+/* ══ RESULTS PANEL ══ */
 .results-panel{background:var(--card)}
-.results-fixed{}
-.results-scroll{}
-.total-blk{padding:14px 22px 12px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden}
+.total-blk{padding:16px 22px 14px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden;border-radius:0}
 .total-blk::before{content:'';position:absolute;top:0;right:0;width:48px;height:48px;background:var(--ms-lime);clip-path:polygon(100% 0,0 0,100% 100%)}
 .total-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#fff;font-weight:700;margin-bottom:4px}
 .total-num{font-family:'Instrument Serif',serif;font-size:clamp(34px,4vw,48px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
@@ -452,7 +380,7 @@ select:focus,
 .a4-row .a4-lbl{font-size:13px;color:rgba(255,255,255,.95);font-weight:600;display:flex;align-items:center;gap:6px}
 .a4-row .a4-val{font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .a4-row .a4-note{display:block;font-size:11px;color:rgba(255,255,255,.8);margin-top:3px}
-.chart-sec{padding:12px 22px 8px}
+.chart-sec{padding:14px 22px 10px}
 .res-sub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ms-blue);margin-bottom:9px}
 .mod-bar-colhead{display:flex;align-items:flex-end;gap:10px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--line)}
 .mbc-head{flex-shrink:0;width:172px}
@@ -461,7 +389,6 @@ select:focus,
 .mbc-pct{flex-shrink:0;width:42px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);line-height:1.2}
 .stage-bar{display:flex;height:24px;border:1px solid var(--ms-navy);overflow:hidden;margin-bottom:4px}
 
-/* per-module horizontal bars */
 .mod-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 .mod-bar-head{flex-shrink:0;width:172px;display:flex;align-items:center;gap:7px}
 .mod-bar-tag{flex-shrink:0;width:28px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#fff;text-align:center;padding:3px 0;border-radius:3px}
@@ -474,7 +401,7 @@ select:focus,
 .leg{display:flex;align-items:center;gap:5px}
 .leg-dot{width:9px;height:9px;flex-shrink:0;border-radius:2px}
 
-/* A1 raw-material composition breakdown (nested under the A1 module bar) */
+/* A1 breakdown */
 .a1-breakdown{margin:0 0 9px 38px;padding:6px 0 3px 12px;border-left:2px solid var(--a1)}
 .a1-sub-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11.5px}
 .a1-sub-row:last-child{margin-bottom:0}
@@ -488,34 +415,23 @@ select:focus,
 
 /* info icon variant for the dark results box */
 .total-blk .info-ic{border-color:rgba(255,255,255,.7);color:#fff}
-.total-blk .info-ic:hover,.total-blk .info-ic:focus{background:#fff;color:var(--ms-navy)}
+.total-blk .info-ic:hover{background:#fff;color:var(--ms-navy)}
 
-/* draft / key points block */
-.draft-box{margin-top:16px;border:1px solid var(--line);background:var(--bg);padding:0}
-.draft-head{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--ms-navy);color:#fff}
-.draft-head .draft-tag{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:var(--ms-lime);color:var(--ms-navy);padding:2px 8px}
-.draft-head .draft-title{font-size:12px;font-weight:600;letter-spacing:.02em}
-.draft-body{padding:13px 15px;font-size:12.5px;line-height:1.6;color:var(--ink)}
-.draft-body strong{font-weight:700;color:var(--ms-navy)}
-.draft-body .draft-fig{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ms-blue)}
-.draft-points{list-style:none;margin:0;padding:0}
-.draft-points li{display:flex;gap:9px;align-items:flex-start;margin-bottom:10px;font-size:12.5px;line-height:1.5}
-.draft-points li:last-child{margin-bottom:0}
-.kp-mark{flex-shrink:0;color:var(--ms-blue);font-weight:700;font-size:13px;line-height:1.4}
-
-/* placeholder disclaimer */
-.disclaimer-box{margin-top:10px;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:rgba(231,76,60,.07);border:1px solid var(--warn);border-radius:5px;font-size:11.5px;line-height:1.5;color:var(--ink)}
+/* disclaimer */
+.disclaimer-box{margin-top:10px;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;background:rgba(231,76,60,.07);border:1px solid var(--warn);border-radius:6px;font-size:11.5px;line-height:1.5;color:var(--ink)}
 .disclaimer-ic{flex-shrink:0;width:18px;height:18px;border-radius:50%;background:var(--warn);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;line-height:1}
 
 footer{margin-top:30px;padding:14px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:11px;color:var(--ink-faint);flex-wrap:wrap;gap:10px}
 footer em{font-family:'Instrument Serif',serif;font-style:italic}
 
-/* ══ INTERACTION LEGEND ══ */
-.how-swatch{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center}
-.how-edit{width:26px;height:16px;border:1.5px solid var(--ms-lime);border-radius:3px;background:rgba(197,209,46,.12)}
-.how-slide{width:34px;height:5px;background:linear-gradient(to right,var(--ms-lime) 50%,var(--line-soft) 50%);border-radius:3px;position:relative}
-.how-slide-thumb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:#fff;border:2.5px solid var(--ms-navy)}
-.how-info{width:16px;height:16px;border-radius:50%;border:1.4px solid var(--ms-blue);color:var(--ms-blue);font-size:10px;font-weight:700;font-style:italic;font-family:'Instrument Serif',serif}
+/* Add-material button */
+.add-rm-btn{
+  width:100%;padding:9px;border:1.5px dashed var(--ms-blue);border-radius:5px;
+  background:transparent;color:var(--ms-blue);cursor:pointer;
+  font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;transition:all .15s;margin-top:2px;
+}
+.add-rm-btn:hover{background:rgba(61,90,128,.06)}
 </style>
 </head>
 <body>
@@ -526,39 +442,20 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
 <div id="v-tool" class="view active">
   <div class="masthead">
     <div class="mh-brand">
-      <span class="mh-dot"></span>
-      <div class="mh-words">
-        <span class="mh-name">Construction&nbsp;LCA <em>Tool</em></span>
-      </div>
+      <span class="mh-logo">
+        <svg viewBox="0 0 100 100" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 84 A38 38 0 0 1 14 44" fill="none" stroke="#2E4F75" stroke-width="13"/>
+          <path d="M16 36 A38 38 0 0 1 43 13" fill="none" stroke="#2E4F75" stroke-width="13"/>
+          <path d="M51 12 A38 38 0 0 1 85 34" fill="none" stroke="#2E4F75" stroke-width="13"/>
+          <path d="M87 42 A38 38 0 0 1 80 74" fill="none" stroke="#2E4F75" stroke-width="13"/>
+          <path d="M58 97 C51 64 86 46 94 42 C90 58 78 88 62 97Z" fill="#B7CB32"/>
+          <path d="M84 54 C77 68 69 82 63 95" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="mh-title">Construction LCA Tool</span>
     </div>
     <div class="mh-actions">
-      <div class="mh-rail" aria-label="Life-cycle stages A1 to A5">
-        <span class="rail-step" style="--c:var(--a1)">
-          <span class="rail-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg></span>
-          <span class="rail-txt"><b>A1</b>Raw materials</span>
-        </span>
-        <span class="rail-arrow">→</span>
-        <span class="rail-step" style="--c:var(--a2)">
-          <span class="rail-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8zM5.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg></span>
-          <span class="rail-txt"><b>A2</b>Material transport</span>
-        </span>
-        <span class="rail-arrow">→</span>
-        <span class="rail-step" style="--c:var(--a3)">
-          <span class="rail-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg></span>
-          <span class="rail-txt"><b>A3</b>Manufacturing</span>
-        </span>
-        <span class="rail-arrow">→</span>
-        <span class="rail-step" style="--c:var(--a4)">
-          <span class="rail-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>
-          <span class="rail-txt"><b>A4</b>Product transport</span>
-        </span>
-        <span class="rail-arrow">→</span>
-        <span class="rail-step" style="--c:var(--a5)">
-          <span class="rail-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
-          <span class="rail-txt"><b>A5</b>Installation</span>
-        </span>
-      </div>
-      <button class="reset-btn" id="resetBtn">↺ Clear all</button>
+      <button class="reset-btn" id="resetBtn">&#8634; Clear All</button>
     </div>
   </div>
 
@@ -574,7 +471,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           <div class="sec-strip">
             <span class="sec-strip-label">Product Type</span>
             <span class="sec-strip-line"></span>
-            <span class="info-ic tip-down" tabindex="0">i<span class="info-tip">Select the type of construction product you are assessing. This does not change the calculation method — all inputs below apply to any product type.</span></span>
+            <span class="info-ic tip-down">i<span class="info-tip">Select the type of construction product you are assessing. This does not change the calculation method — all inputs below apply to any product type.</span></span>
           </div>
           <span class="select-lbl">Select your product</span>
           <select id="s-product">
@@ -593,11 +490,11 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           <div class="sec-strip">
             <span class="sec-strip-label">Product Properties</span>
             <span class="sec-strip-line"></span>
-            <span class="info-ic tip-down" tabindex="0">i<span class="info-tip">Physical characteristics of the finished product that scale its footprint — how dense it is and how much material is lost in production.</span></span>
+            <span class="info-ic tip-down">i<span class="info-tip">Physical characteristics of the finished product that scale its footprint — how dense it is and how much material is lost in production.</span></span>
           </div>
           <div class="ctrl">
             <div class="ctrl-row">
-              <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic" tabindex="0">i<span class="info-tip">The bulk density of the finished product — its mass per cubic metre. Heavier, denser products use more raw material per unit volume, which raises the A1 and transport emissions. Enter the as-cast density of your block or paver.</span></span></span>
+              <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic tip-down">i<span class="info-tip">The bulk density of the finished product — its mass per cubic metre. Heavier, denser products use more raw material per unit volume, which raises the A1 and transport emissions.</span></span></span>
               <span class="ctrl-badge" id="d-mass">0 kg/m³</span>
             </div>
             <input type="range" id="s-mass" min="0" max="250" step="5" value="0"/>
@@ -610,14 +507,14 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           <div class="sec-strip mod-a1">
             <span class="sec-strip-label">Raw Materials (A1)</span>
             <span class="sec-strip-line"></span>
-            <span class="info-ic" tabindex="0">i<span class="info-tip">Module A1 covers the raw materials in your product. List each material, set its share of the mix and choose its category. Note: emission factors used here are placeholders for demonstration only. The shares should add up to 100%.</span></span>
+            <span class="info-ic">i<span class="info-tip">Module A1 covers the raw materials in your product. List each material, set its share of the mix and choose its category. Note: emission factors used here are placeholders for demonstration only. The shares should add up to 100%.</span></span>
           </div>
           <p style="font-size:12px;color:var(--ink-soft);margin-bottom:14px">Set the share of each material in your product mix. Note: the emission factors used here are placeholders for demonstration purposes only — they do not represent real data for any specific material.</p>
           <div id="rmSliders"></div>
           <button class="add-rm-btn" id="addRmBtn">+ Add raw material</button>
           <div class="rm-status" id="residualBar">
             <div class="rm-status-top">
-              <span class="rm-status-label">Total assigned<span class="info-ic" tabindex="0">i<span class="info-tip">All raw material shares should add up to exactly 100%. Below 100% means part of the mix is unaccounted for; above 100% means the shares are over-allocated.</span></span></span>
+              <span class="rm-status-label">Total assigned<span class="info-ic">i<span class="info-tip">All raw material shares should add up to exactly 100%. Below 100% means part of the mix is unaccounted for; above 100% means the shares are over-allocated.</span></span></span>
               <span class="rm-status-total" id="residualTotal">100%</span>
             </div>
             <div class="rm-status-track"><div class="rm-status-fill" id="residualFill"></div></div>
@@ -630,22 +527,18 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           <div class="sec-strip mod-a2">
             <span class="sec-strip-label">Raw Material Transport (A2)</span>
             <span class="sec-strip-line"></span>
-            <span class="info-ic" tabindex="0">i<span class="info-tip">Module A2 is the journey each raw material makes from its supplier to your factory gate. A row appears here for every material you add above — set each one's one-way distance in km.</span></span>
+            <span class="info-ic">i<span class="info-tip">Module A2 is the journey each raw material makes from its supplier to your factory gate. A row appears here for every material you add above — set each one's one-way distance in km.</span></span>
           </div>
-          <p style="font-size:12px;color:var(--ink-soft);margin-bottom:12px;display:flex;align-items:center;gap:6px">Inbound distance from each supplier to your gate. Auto-filled from the raw materials above.<span class="info-ic" tabindex="0">i<span class="info-tip">Each raw material can travel a different distance from its supplier to your factory gate. Enter the one-way distance in kilometres; this drives the A2 inbound-transport emissions for that material.</span></span></p>
+          <p style="font-size:12px;color:var(--ink-soft);margin-bottom:12px;display:flex;align-items:center;gap:6px">Inbound distance from each supplier to your gate.<span class="info-ic">i<span class="info-tip">Each raw material can travel a different distance from its supplier to your factory gate. Enter the one-way distance in kilometres; this drives the A2 inbound-transport emissions for that material.</span></span></p>
           <div id="transportRows"></div>
         </div>
-
-
-
-
 
         <!-- MANUFACTURING (A3) -->
         <div class="param-block">
           <div class="sec-strip mod-a3">
             <span class="sec-strip-label">Manufacturing (A3)</span>
             <span class="sec-strip-line"></span>
-            <span class="info-ic" tabindex="0">i<span class="info-tip">Module A3 covers the factory stage — the energy used to make the product and the material lost as wastage. Set the electricity each kilogram needs, your grid carbon intensity, any on-site solar, and your wastage rate.</span></span>
+            <span class="info-ic">i<span class="info-tip">Module A3 covers the factory stage — the energy used to make the product and the material lost as wastage. Set the electricity each kilogram needs, your grid carbon intensity, any on-site solar, and your wastage rate.</span></span>
           </div>
           <div class="elec-box">
             <div class="elec-top">
@@ -655,16 +548,16 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
               <span class="elec-title">Electricity &amp; Grid</span>
             </div>
 
-            <div style="font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px;display:flex;align-items:center;gap:6px">Electricity Consumption (kWh/kg)<span class="info-ic" tabindex="0">i<span class="info-tip">How much electricity is used to produce one kilogram of product. Higher consumption raises the A3 manufacturing footprint.</span></span></div>
+            <div style="font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px;display:flex;align-items:center;gap:6px">Electricity Consumption (kWh/kg)<span class="info-ic">i<span class="info-tip">How much electricity is used to produce one kilogram of product. Higher consumption raises the A3 manufacturing footprint.</span></span></div>
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;color:var(--ms-blue)">0</span>
               <input type="range" id="s-elec-kg" min="0" max="1" step="0.01" value="0" style="flex:1"/>
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;color:var(--ms-blue)">1.00</span>
               <span class="elec-pill" id="elec-pill">0.00 kWh/kg</span>
             </div>
-            
 
-            <div class="grid-lbl" style="display:flex;align-items:center;gap:6px">Grid Region<span class="info-ic" tabindex="0">i<span class="info-tip">The regional electricity grid supplying your factory. Each region has a different carbon intensity (kgCO₂e per kWh), so the same energy use produces different emissions depending on where you operate.</span></span></div>
+
+            <div class="grid-lbl" style="display:flex;align-items:center;gap:6px">Grid Region<span class="info-ic">i<span class="info-tip">The regional electricity grid supplying your factory. Each region has a different carbon intensity (kgCO₂e per kWh), so the same energy use produces different emissions depending on where you operate.</span></span></div>
             <select id="s-grid">
               <option value="" selected disabled>Select grid region…</option>
               <option value="1.365165">All India (Unified Grid)</option>
@@ -681,9 +574,8 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.07" y2="4.93"/></svg>
               </span>
               <span class="solar-sep-title">Rooftop Solar</span>
-              
             </div>
-            <div class="solar-kw-lbl" style="display:flex;align-items:center;gap:6px">Solar Capacity (kWp)<span class="info-ic" tabindex="0">i<span class="info-tip">On-site rooftop solar that offsets grid electricity. Enter your installed capacity in kWp — the tool estimates annual generation and reduces the grid portion of A3 accordingly. Leave at 0 if you have none.</span></span></div>
+            <div class="solar-kw-lbl" style="display:flex;align-items:center;gap:6px">Solar Capacity (kWp)<span class="info-ic">i<span class="info-tip">On-site rooftop solar that offsets grid electricity. Enter your installed capacity in kWp — the tool estimates annual generation and reduces the grid portion of A3 accordingly. Leave at 0 if you have none.</span></span></div>
             <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Insert solar capacity (kWp)"/>
             <div class="solar-assume">Assumption: 1 kWp = 1,500 kWh/yr</div>
 
@@ -712,7 +604,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
             </div>
             <div class="ctrl" style="margin-top:12px">
               <div class="ctrl-row">
-                <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Raw material wastage rate<span class="info-ic" tabindex="0">i<span class="info-tip">The share of input material lost as breakage, trim or rejects before it becomes saleable product. A 5% wastage means 95% is usable. Higher wastage means more raw material and energy are consumed per usable unit, raising emissions.</span></span></span>
+                <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Raw material wastage rate<span class="info-ic">i<span class="info-tip">The share of input material lost as breakage, trim or rejects before it becomes saleable product. A 5% wastage means 95% is usable. Higher wastage means more raw material and energy are consumed per usable unit, raising emissions.</span></span></span>
                 <span class="ctrl-badge" id="d-yield">0%</span>
               </div>
               <input type="range" id="s-yield" min="0" max="30" step="1" value="0"/>
@@ -726,11 +618,11 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           <div class="sec-strip mod-a4">
             <span class="sec-strip-label">Product Transport (A4)</span>
             <span class="sec-strip-line"></span>
-            <span class="info-ic" tabindex="0">i<span class="info-tip">Outbound delivery of the finished product to the construction site (module A4). This sits outside the cradle-to-gate boundary, so it's reported separately from the headline A1–A3 figure.</span></span>
+            <span class="info-ic">i<span class="info-tip">Outbound delivery of the finished product to the construction site (module A4). This sits outside the cradle-to-gate boundary, so it's reported separately from the headline A1–A3 figure.</span></span>
           </div>
           <div class="ctrl">
             <div class="ctrl-row">
-              <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Site transport (A4)<span class="info-ic" tabindex="0">i<span class="info-tip">The distance the finished product travels from your gate to the construction site, in kilometres. This drives the A4 transport stage. Raw-material (inbound, A2) distances are set individually on each raw material above.</span></span></span>
+              <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Site transport (A4)<span class="info-ic">i<span class="info-tip">The distance the finished product travels from your gate to the construction site, in kilometres. This drives the A4 transport stage.</span></span></span>
               <span class="ctrl-badge" id="d-out">0 km</span>
             </div>
             <input type="range" id="s-outbound" min="0" max="500" step="10" value="0"/>
@@ -739,14 +631,14 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
         </div>
 
         <!-- INSTALLATION (A5) -->
-        <div class="param-block" style="--c:var(--a5,var(--a5))">
-          <div class="sec-strip" style="--c:var(--a5,var(--a5))">
+        <div class="param-block">
+          <div class="sec-strip">
             <span class="sec-strip-label">Installation (A5)</span>
             <span class="sec-strip-line"></span>
-            <span class="info-ic" tabindex="0">i<span class="info-tip">Module A5 covers on-site installation of the product. Enter the electricity consumed per kilogram of product during installation (e.g. cutting, fixing, grouting). The same grid carbon intensity as A3 is applied.</span></span>
+            <span class="info-ic">i<span class="info-tip">Module A5 covers on-site installation of the product. Enter the electricity consumed per kilogram of product during installation (e.g. cutting, fixing, grouting). The same grid carbon intensity as A3 is applied.</span></span>
           </div>
           <div class="ctrl">
-            <div style="font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px;display:flex;align-items:center;gap:6px">Installation electricity (kWh/kg)<span class="info-ic" tabindex="0">i<span class="info-tip">Electricity consumed per kilogram of product during installation on site. Calculated using the same grid carbon intensity selected in the Manufacturing (A3) section above.</span></span></div>
+            <div style="font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px;display:flex;align-items:center;gap:6px">Installation electricity (kWh/kg)<span class="info-ic">i<span class="info-tip">Electricity consumed per kilogram of product during installation on site. Calculated using the same grid carbon intensity selected in the Manufacturing (A3) section above.</span></span></div>
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;color:var(--ms-blue)">0</span>
               <input type="range" id="s-a5elec" min="0" max="1" step="0.01" value="0" style="flex:1"/>
@@ -770,7 +662,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
             <div class="a4-row">
               <span class="a4-lbl">
                 + Site transport (A4)
-                <span class="info-ic" tabindex="0">i<span class="info-tip">A4 covers transport of the finished product from the factory gate to site. It sits outside the cradle-to-gate (A1–A3) boundary, so it is reported here as a separate line rather than added to the headline figure.</span></span>
+                <span class="info-ic tip-left">i<span class="info-tip">A4 covers transport of the finished product from the factory gate to site. It sits outside the cradle-to-gate (A1–A3) boundary, so it is reported here as a separate line rather than added to the headline figure.</span></span>
               </span>
               <span style="text-align:right">
                 <span class="a4-val" id="r-a4">—</span>
@@ -780,7 +672,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
             <div class="a4-row">
               <span class="a4-lbl">
                 + Installation (A5)
-                <span class="info-ic" tabindex="0">i<span class="info-tip">A5 covers on-site installation. Calculated from the installation electricity input using the same grid carbon intensity as A3. Reported separately from the A1–A3 cradle-to-gate total.</span></span>
+                <span class="info-ic tip-left">i<span class="info-tip">A5 covers on-site installation. Calculated from the installation electricity input using the same grid carbon intensity as A3. Reported separately from the A1–A3 cradle-to-gate total.</span></span>
               </span>
               <span style="text-align:right">
                 <span class="a4-val" id="r-a5">—</span>
@@ -828,25 +720,22 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
    BACKEND EMISSION FACTORS (not shown to user)
 ════════════════════════════════════════════ */
 const EF = {
-  // Raw material EFs kgCO₂e/kg — per material type index
   rm: {
-    binder:    0.900,   // cement / lime / binders
-    aggregate: 0.005,   // natural aggregate / sand
-    filler:    0.003,   // recycled / inert filler
-    additive:  1.500,   // admixtures / special chemicals
+    binder:    0.900,
+    aggregate: 0.005,
+    filler:    0.003,
+    additive:  1.500,
   },
-  truck:  0.0001,       // kgCO₂e per kg per km
-  C_base: 4,            // kgCO₂e/m³ base EOL
-  D_per_kg: 0.04,       // avoided burden per kg recovered
-  KWP_KWH: 1500,        // kWh/yr per kWp
-  REF_PROD: 30000,      // m²/yr reference production (for solar share calc)
-  SOLAR_LIFECYCLE: 0.045 // lifecycle EF of solar power kgCO₂e/kWh
+  truck:  0.0001,
+  C_base: 4,
+  D_per_kg: 0.04,
+  KWP_KWH: 1500,
+  REF_PROD: 30000,
+  SOLAR_LIFECYCLE: 0.045
 };
 
 /* ════════════════════════════════════════════
-   PRODUCT PRESETS
-   rawMaterials: [{name, pct, efKey}]
-   efKey maps to EF.rm above — never shown
+   PRODUCT PRESETS — all values start at 0
 ════════════════════════════════════════════ */
 const PRODUCTS = {
   solidblock: {
@@ -854,8 +743,8 @@ const PRODUCTS = {
     mass: 0, elecKgKg: 0,
     grid: '', processYield: 100, outbound: 0, solarKw: 0, a5ElecKgKg: 0,
     rawMaterials: [
-      {name: '', pct: 70, efKey: 'binder', km: 0},
-      {name: '', pct: 30, efKey: 'aggregate', km: 0}
+      {name: '', pct: 0, efKey: 'binder', km: 0},
+      {name: '', pct: 0, efKey: 'aggregate', km: 0}
     ]
   },
   hollowblock: {
@@ -863,8 +752,8 @@ const PRODUCTS = {
     mass: 0, elecKgKg: 0,
     grid: '', processYield: 100, outbound: 0, solarKw: 0, a5ElecKgKg: 0,
     rawMaterials: [
-      {name: '', pct: 70, efKey: 'binder', km: 0},
-      {name: '', pct: 30, efKey: 'aggregate', km: 0}
+      {name: '', pct: 0, efKey: 'binder', km: 0},
+      {name: '', pct: 0, efKey: 'aggregate', km: 0}
     ]
   },
   interlock: {
@@ -872,8 +761,8 @@ const PRODUCTS = {
     mass: 0, elecKgKg: 0,
     grid: '', processYield: 100, outbound: 0, solarKw: 0, a5ElecKgKg: 0,
     rawMaterials: [
-      {name: '', pct: 70, efKey: 'binder', km: 0},
-      {name: '', pct: 30, efKey: 'aggregate', km: 0}
+      {name: '', pct: 0, efKey: 'binder', km: 0},
+      {name: '', pct: 0, efKey: 'aggregate', km: 0}
     ]
   },
   flatpaver: {
@@ -881,8 +770,8 @@ const PRODUCTS = {
     mass: 0, elecKgKg: 0,
     grid: '', processYield: 100, outbound: 0, solarKw: 0, a5ElecKgKg: 0,
     rawMaterials: [
-      {name: '', pct: 70, efKey: 'binder', km: 0},
-      {name: '', pct: 30, efKey: 'aggregate', km: 0}
+      {name: '', pct: 0, efKey: 'binder', km: 0},
+      {name: '', pct: 0, efKey: 'aggregate', km: 0}
     ]
   }
 };
@@ -906,8 +795,6 @@ function calculate(p) {
   const yf  = 100 / Math.max(1, p.processYield);
   const sol = calcSolar(p);
 
-  // A1 — raw materials (emission factors applied from backend)
-  // A2 — inbound transport, now computed PER raw material (each has its own km)
   let a1 = 0, a2 = 0;
   const rmContribs = [];
   p.rawMaterials.forEach((rm, idx) => {
@@ -921,14 +808,11 @@ function calculate(p) {
     rmContribs.push({name: nm, a1: a1c, a2: a2c, contrib: a1c});
   });
 
-  // A3 — electricity (grid portion after solar)
   const elecM2 = sol.gridElecKgKg * p.mass;
   const a3 = elecM2 * (parseFloat(p.grid) || 0);
 
   const a1a3 = a1 + a2 + a3;
-  // A4 — site transport (cradle-to-grave module, shown separately, NOT in the A1–A3 total)
   const a4 = p.mass * p.outbound * EF.truck;
-  // A5 — installation electricity (grid EF, separate kWh/kg input, no solar offset)
   const a5 = p.a5ElecKgKg * p.mass * (parseFloat(p.grid) || 0);
 
   return {a1, a2, a3, a1a3, a4, a5, rmContribs, sol};
@@ -959,15 +843,13 @@ function navigate() {
   requestAnimationFrame(sizeToolColumns);
 }
 
-/* Size the split-screen columns to exactly fill the viewport below the tool top row,
-   so only the columns scroll (not the whole page). Recompute on resize. */
 function sizeToolColumns(){
   if(!document.body.classList.contains('tool-mode')) return;
-  if(window.innerWidth <= 920) return; // mobile uses normal page scroll
+  if(window.innerWidth <= 920) return;
   const grid = document.querySelector('.tool-grid');
   if(!grid) return;
   const top = grid.getBoundingClientRect().top + window.scrollY;
-  const h = window.innerHeight - top - 14; // match grid bottom padding
+  const h = window.innerHeight - top - 14;
   document.documentElement.style.setProperty('--tool-h', h + 'px');
 }
 window.addEventListener('resize', sizeToolColumns);
@@ -977,14 +859,13 @@ window.addEventListener('resize', sizeToolColumns);
 ════════════════════════════════════════════ */
 $('s-product').addEventListener('change', e => {
   const key = e.target.value;
-  // preserve user's logistics/grid/solar settings
   const prev = state;
   setProduct(key);
   state.outbound = prev.outbound;
   state.grid     = prev.grid;
   state.solarKw  = prev.solarKw;
   state.elecKgKg = prev.elecKgKg;
-  baseline = calculate(PRODUCTS[key]); // recalc baseline from fresh preset
+  baseline = calculate(PRODUCTS[key]);
   loadUI(); render();
 });
 
@@ -994,9 +875,8 @@ $('s-product').addEventListener('change', e => {
 const RM_EF_KEYS = ['binder','aggregate','filler','additive'];
 const RM_EF_LABELS = ['Binder (cement/lime)', 'Aggregate / Sand', 'Inert Filler', 'Additive / Admixture'];
 
-/* small (i) icon with a hover tooltip explaining a field */
 function infoIcon(text){
-  return `<span class="info-ic" tabindex="0">i<span class="info-tip">${escH(text)}</span></span>`;
+  return `<span class="info-ic">i<span class="info-tip">${escH(text)}</span></span>`;
 }
 
 function renderRmSliders() {
@@ -1005,7 +885,7 @@ function renderRmSliders() {
   state.rawMaterials.forEach((rm, i) => {
     const div = document.createElement('div');
     div.className = 'ctrl';
-    div.style.cssText = 'border:1px solid var(--line-soft);padding:12px 14px;margin-bottom:10px;background:var(--bg)';
+    div.style.cssText = 'border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:#FAFBF9';
     div.innerHTML = `
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
         <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ms-blue);flex-shrink:0">Raw Material ${i+1} · A1</span>
@@ -1014,12 +894,12 @@ function renderRmSliders() {
           placeholder="Insert raw material name here"
           style="flex:1;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
         <select class="rm-ef-sel" data-idx="${i}" title="Material category — sets the emission factor"
-          style="width:auto;font-size:11px;padding:4px 8px;color:var(--ink-soft);border:1px solid var(--line);background:var(--card)">
+          style="width:auto;font-size:11px;padding:4px 8px;color:var(--ink-soft);border:1px solid var(--line);border-radius:4px;background:var(--card)">
           ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
         </select>
         ${infoIcon('Material category. This sets which emission factor is applied to the material — binders (cement/lime) are carbon-heavy, aggregates and fillers much lower. Pick the closest match.')}
         <button class="rm-del-btn" data-idx="${i}"
-          style="flex-shrink:0;width:24px;height:24px;border:1px solid var(--line);background:transparent;color:var(--ink-faint);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;${state.rawMaterials.length<=1?'opacity:.25;pointer-events:none':''}"
+          style="flex-shrink:0;width:24px;height:24px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink-faint);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;${state.rawMaterials.length<=1?'opacity:.25;pointer-events:none':''}"
         >×</button>
       </div>
       <div class="ctrl-row">
@@ -1031,13 +911,11 @@ function renderRmSliders() {
     `;
     container.appendChild(div);
   });
-  // wire up the green fill on the dynamically-created RM sliders
   container.querySelectorAll('input[type="range"]').forEach(el => updateSliderFill(el));
   renderTransport();
   updateResidual();
 }
 
-/* ── A2 transport section: auto-populated from the raw materials in A1 ── */
 function renderTransport(){
   const box = $('transportRows');
   if(!box) return;
@@ -1049,7 +927,7 @@ function renderTransport(){
     row.innerHTML = `
       <span class="tp-tag">RM ${i+1}</span>
       <span class="tp-name" title="${escH(label)}">${escH(label)}</span>
-      <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="0"/>
+      <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Insert distance (km)"/>
       <span class="tp-unit">km</span>
     `;
     box.appendChild(row);
@@ -1076,11 +954,10 @@ $('rmSliders').addEventListener('change', e => {
   }
   if(el.classList.contains('rm-name-inp')) {
     state.rawMaterials[+el.dataset.idx].name = el.value;
-    renderTransport();   // keep the A2 transport list labels in sync
+    renderTransport();
     render();
   }
 });
-/* A2 transport distances live in their own section, auto-populated from A1 */
 $('transportRows').addEventListener('input', e => {
   const el = e.target;
   if(el.classList.contains('rm-km-inp')) {
@@ -1104,11 +981,6 @@ $('addRmBtn').addEventListener('click', () => {
   renderRmSliders(); render();
 });
 
-const addBtn = $('addRmBtn');
-addBtn.style.cssText='width:100%;padding:9px;border:1.5px dashed var(--ms-blue);background:transparent;color:var(--ms-blue);cursor:pointer;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:all .15s;margin-top:2px';
-addBtn.addEventListener('mouseenter',()=>{addBtn.style.background='rgba(61,90,128,.06)'});
-addBtn.addEventListener('mouseleave',()=>{addBtn.style.background='transparent'});
-
 function updateResidual() {
   const used = state.rawMaterials.reduce((s,r)=>s+r.pct,0);
   const bar  = $('residualBar');
@@ -1118,7 +990,6 @@ function updateResidual() {
   bar.dataset.state = state_;
 
   $('residualTotal').textContent = used + '%';
-  // fill bar caps at 100% visually; turns red past it
   $('residualFill').style.width = Math.min(used,100) + '%';
 
   const msg = $('residualVal');
@@ -1130,7 +1001,6 @@ function updateResidual() {
     msg.innerHTML = `✓ All shares assigned (100%)`;
   }
 
-  // badges: red when over, amber when under, normal when exact
   document.querySelectorAll('.rm-pct-badge').forEach(b => {
     if(over)       { b.style.background='var(--warn)'; b.style.color='#fff'; }
     else if(under) { b.style.background='#D98A2B';     b.style.color='#fff'; }
@@ -1164,7 +1034,6 @@ function loadUI() {
   $('elec-pill').textContent = state.elecKgKg.toFixed(2) + ' kWh/kg';
   $('s-grid').value     = state.grid;
   $('sol-kw').value     = state.solarKw ? state.solarKw : '';
-  // update all slider fills
   ['s-mass','s-yield','s-outbound','s-elec-kg','s-a5elec'].forEach(id => updateSliderFill($(id)));
   renderRmSliders();
   updateSolarUI();
@@ -1177,7 +1046,6 @@ function updateSolarUI() {
   const sol = calcSolar(state);
   $('elec-pill').textContent = state.elecKgKg.toFixed(2) + ' kWh/kg';
 
-  // solar contrib
   const kw  = state.solarKw;
   const pct = sol.solarPct;
   const contrib = $('solarContrib');
@@ -1218,7 +1086,6 @@ function render() {
   $('r-a4').textContent    = fmt(r.a4, r.a4<5?2:1);
   $('r-a5').textContent    = fmt(r.a5, r.a5<5?2:1);
 
-  // One bar per module, each in its own colour. A1–A3 are in-boundary; A4 shown too.
   const mods = [
     {tag:'A1', name:'Raw materials',   val:r.a1, color:'var(--a1)', inCtg:true},
     {tag:'A2', name:'Raw material transport', val:r.a2, color:'var(--a2)', inCtg:true},
@@ -1242,7 +1109,6 @@ function render() {
       <span class="mod-bar-pct">${pct!=null?pct.toFixed(0)+'%':'—'}</span>`;
     mbox.appendChild(row);
 
-    // Under the A1 bar, break A1 down by individual raw material (composition)
     if(m.tag==='A1' && r.rmContribs.length){
       const sub = document.createElement('div'); sub.className='a1-breakdown';
       const maxA1 = Math.max(0.0001, ...r.rmContribs.map(rm=>rm.a1));
@@ -1260,10 +1126,32 @@ function render() {
       mbox.appendChild(sub);
     }
   });
-
-  // key points removed
 }
 
+/* ════════════════════════════════════════════
+   TOOLTIP SMART POSITIONING
+════════════════════════════════════════════ */
+document.addEventListener('mouseover', e => {
+  const ic = e.target.closest('.info-ic');
+  if(!ic) return;
+  const tip = ic.querySelector('.info-tip');
+  if(!tip) return;
+  tip.style.left = '';
+  tip.style.right = '';
+  tip.style.transform = '';
+  requestAnimationFrame(() => {
+    const rect = tip.getBoundingClientRect();
+    if(rect.left < 8) {
+      tip.style.left = '0';
+      tip.style.right = 'auto';
+      tip.style.transform = 'none';
+    } else if(rect.right > window.innerWidth - 8) {
+      tip.style.left = 'auto';
+      tip.style.right = '0';
+      tip.style.transform = 'none';
+    }
+  });
+});
 
 /* ════════════════════════════════════════════
    INIT
