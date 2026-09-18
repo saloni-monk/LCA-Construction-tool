@@ -218,34 +218,17 @@ input[type="range"]:active::-moz-range-thumb{animation:none}
 }
 .info-ic:hover{background:var(--ms-blue);color:#fff;outline:none}
 .info-tip{
-  position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
-  width:250px;max-width:280px;
+  position:fixed;
+  width:240px;
   background:var(--ms-navy);color:#fff;
   font-size:11.5px;font-weight:400;font-style:normal;line-height:1.55;
   font-family:'IBM Plex Sans',sans-serif;letter-spacing:0;
   text-transform:none;text-align:left;
   padding:10px 13px;border-radius:8px;
   opacity:0;visibility:hidden;transition:opacity .15s;
-  z-index:999;pointer-events:none;
+  z-index:9999;pointer-events:none;
   box-shadow:0 8px 24px rgba(26,43,61,.22);
 }
-.info-tip::after{
-  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
-  border:6px solid transparent;border-top-color:var(--ms-navy);
-}
-.info-ic:hover .info-tip{opacity:1;visibility:visible}
-
-/* Tooltip that opens DOWNWARD */
-.tip-down .info-tip{bottom:auto;top:calc(100% + 10px)}
-.tip-down .info-tip::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--ms-navy)}
-
-/* Tooltip that opens to the LEFT (for right-edge icons) */
-.tip-left .info-tip{left:auto;right:0;transform:none}
-.tip-left .info-tip::after{left:auto;right:10px;transform:none}
-
-/* Tooltip that opens to the RIGHT (for left-edge icons) */
-.tip-right .info-tip{left:0;right:auto;transform:none}
-.tip-right .info-tip::after{left:10px;right:auto;transform:none}
 
 /* ══ RAW MATERIAL TOTAL STATUS BANNER ══ */
 .rm-status{margin-top:12px;border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--line-soft);transition:all .15s}
@@ -522,7 +505,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           </div>
           <div class="ctrl">
             <div class="ctrl-row">
-              <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic tip-down">i<span class="info-tip">Mass per cubic metre of the finished product.</span></span></span>
+              <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic ">i<span class="info-tip">Mass per cubic metre of the finished product.</span></span></span>
               <span class="ctrl-badge" id="d-mass">0 kg/m³</span>
             </div>
             <input type="range" id="s-mass" min="0" max="250" step="5" value="0"/>
@@ -690,7 +673,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
             <div class="a4-row">
               <span class="a4-lbl">
                 + Site transport (A4)
-                <span class="info-ic tip-left">i<span class="info-tip">Reported separately from the A1–A3 total.</span></span>
+                <span class="info-ic ">i<span class="info-tip">Reported separately from the A1–A3 total.</span></span>
               </span>
               <span style="text-align:right">
                 <span class="a4-val" id="r-a4">—</span>
@@ -700,7 +683,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
             <div class="a4-row">
               <span class="a4-lbl">
                 + Installation (A5)
-                <span class="info-ic tip-left">i<span class="info-tip">Reported separately from the A1–A3 total.</span></span>
+                <span class="info-ic ">i<span class="info-tip">Reported separately from the A1–A3 total.</span></span>
               </span>
               <span style="text-align:right">
                 <span class="a4-val" id="r-a5">—</span>
@@ -1157,28 +1140,44 @@ function render() {
 }
 
 /* ════════════════════════════════════════════
-   TOOLTIP SMART POSITIONING
+   TOOLTIP SMART POSITIONING (fixed to viewport)
 ════════════════════════════════════════════ */
 document.addEventListener('mouseover', e => {
   const ic = e.target.closest('.info-ic');
   if(!ic) return;
   const tip = ic.querySelector('.info-tip');
   if(!tip) return;
-  tip.style.left = '';
-  tip.style.right = '';
-  tip.style.transform = '';
-  requestAnimationFrame(() => {
-    const rect = tip.getBoundingClientRect();
-    if(rect.left < 8) {
-      tip.style.left = '0';
-      tip.style.right = 'auto';
-      tip.style.transform = 'none';
-    } else if(rect.right > window.innerWidth - 8) {
-      tip.style.left = 'auto';
-      tip.style.right = '0';
-      tip.style.transform = 'none';
-    }
-  });
+  const r = ic.getBoundingClientRect();
+  const tw = 240, pad = 12;
+  // horizontal: center on icon, clamp to viewport
+  let left = r.left + r.width/2 - tw/2;
+  left = Math.max(pad, Math.min(left, window.innerWidth - tw - pad));
+  // vertical: prefer above icon, fall below if no room
+  let top = r.top - 10;
+  tip.style.width = tw + 'px';
+  tip.style.left = left + 'px';
+  // measure height
+  tip.style.visibility = 'hidden';
+  tip.style.opacity = '0';
+  tip.style.display = 'block';
+  const th = tip.offsetHeight;
+  tip.style.display = '';
+  if(top - th < pad) {
+    tip.style.top = (r.bottom + 10) + 'px';
+  } else {
+    tip.style.top = (top - th) + 'px';
+  }
+  tip.style.visibility = 'visible';
+  tip.style.opacity = '1';
+});
+document.addEventListener('mouseout', e => {
+  const ic = e.target.closest('.info-ic');
+  if(!ic) return;
+  const tip = ic.querySelector('.info-tip');
+  if(!tip) return;
+  if(ic.contains(e.relatedTarget)) return;
+  tip.style.opacity = '0';
+  tip.style.visibility = 'hidden';
 });
 
 /* ════════════════════════════════════════════
