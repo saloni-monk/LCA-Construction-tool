@@ -43,12 +43,12 @@ body{min-height:100vh;padding-bottom:60px}
   text-transform:uppercase;
 }
 .reset-btn{
-  flex-shrink:0;font-family:'IBM Plex Sans',sans-serif;font-size:11px;font-weight:700;
-  letter-spacing:.06em;text-transform:uppercase;padding:8px 18px;
-  border:2px solid var(--ms-navy);background:#FFFFFF;color:var(--ms-navy);
-  cursor:pointer;transition:all .15s;white-space:nowrap;border-radius:4px;
+  flex-shrink:0;font-family:'IBM Plex Sans',sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;
+  border:1.5px solid rgba(255,255,255,.5);background:transparent;color:#fff;
+  cursor:pointer;transition:all .15s;white-space:nowrap;border-radius:3px;margin-left:auto;
 }
-.reset-btn:hover{background:var(--ms-navy);color:#fff}
+.reset-btn:hover{background:rgba(255,255,255,.15)}
 
 .mh-actions{display:flex;align-items:center;gap:16px;flex-shrink:0}
 
@@ -481,7 +481,6 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           <span class="rail-txt"><b>A5</b>Installation</span>
         </span>
       </div>
-      <button class="reset-btn" id="resetBtn">&#8634; Clear All</button>
     </div>
   </div>
 
@@ -489,7 +488,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
 
     <!-- ── LEFT: INPUTS ── -->
     <div class="tool-col-inputs">
-      <div class="col-header col-header-inputs">Inputs</div>
+      <div class="col-header col-header-inputs">Inputs <button class="reset-btn" id="resetBtn">&#8634; Clear All</button></div>
 
       <!-- PRODUCT TYPE -->
       <div class="panel" style="margin-bottom:18px">
@@ -918,7 +917,7 @@ function renderRmSliders() {
           placeholder="Insert raw material name here"
           style="flex:1;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
         <select class="rm-ef-sel" data-idx="${i}" title="Material category — sets the emission factor"
-          style="width:auto;font-size:11px;padding:4px 8px;color:var(--ink-soft);border:1px solid var(--line);border-radius:4px;background:var(--card)">
+          style="width:auto;font-size:11px;padding:4px 28px 4px 8px;color:var(--ink-soft);border:1.5px solid var(--ms-lime);border-radius:4px">
           ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
         </select>
         ${infoIcon('Select the closest material category.')}
