@@ -47,7 +47,7 @@ body{min-height:100vh;padding-bottom:60px}
   border:1.5px solid rgba(255,255,255,.5);background:transparent;color:#fff;
   cursor:pointer;transition:all .15s;white-space:nowrap;border-radius:3px;margin-left:auto;
 }
-.reset-btn:hover{background:rgba(255,255,255,.15)}
+.reset-btn:hover{background:var(--ms-lime);color:var(--ms-navy);border-color:var(--ms-lime)}
 
 .mh-actions{display:flex;align-items:center;gap:16px;flex-shrink:0}
 
@@ -141,17 +141,16 @@ body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14p
 .param-block[data-module]{margin-top:10px;border-radius:6px;border:1px solid var(--line-soft);border-left:4px solid var(--mod-color, var(--line))}
 .notice-ic{
   margin-left:auto;display:inline-flex;align-items:center;justify-content:center;
-  width:22px;height:22px;border-radius:50%;
-  background:rgba(230,150,30,.85);color:#fff;cursor:default;position:relative;
-  font-size:13px;font-weight:800;line-height:1;font-style:normal;
+  cursor:pointer;position:relative;flex-shrink:0;
 }
-.notice-ic .info-tip{
-  position:fixed;width:280px;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;
-  background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:6px;
+.notice-ic svg{width:24px;height:24px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.15))}
+.notice-ic .notice-tip{
+  position:fixed;width:290px;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;
+  background:#fff;color:var(--ink);border:1px solid var(--line);border-left:3px solid #e89b2d;border-radius:6px;
   padding:10px 12px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:999;
   pointer-events:none;opacity:0;transition:opacity .15s;line-height:1.45;
 }
-.notice-ic:hover .info-tip{opacity:1}
+.notice-ic:hover .notice-tip,.notice-ic.active .notice-tip{opacity:1;pointer-events:auto}
 @media(max-width:920px){
   .tool-grid{grid-template-columns:1fr;padding:10px;gap:10px}
   body.tool-mode{overflow:auto;padding-bottom:60px}
@@ -604,7 +603,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
               <span class="solar-sep-title">Rooftop Solar</span>
             </div>
             <div class="solar-kw-lbl">Solar Capacity (kWp)</div>
-            <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Insert solar capacity (kWp)"/>
+            <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Enter solar capacity (kWp)"/>
             <div class="solar-assume">Assumption: 1 kWp = 1,500 kWh/yr</div>
 
             <div class="solar-contrib" id="solarContrib">
@@ -681,7 +680,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
 
     <!-- ── RIGHT: RESULTS ── -->
     <div class="tool-col-results">
-      <div class="col-header col-header-results">Results <span class="notice-ic">!<span class="info-tip"><b>Important note:</b> All values shown are placeholders for demonstration only. This tool is a visualisation of how the analysis will work — none of the numbers are accurate and should not be used for any EPD, LCA study, or formal reporting.</span></span></div>
+      <div class="col-header col-header-results">Results <span class="notice-ic" id="noticeBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L1 21h22L12 2z" fill="#e89b2d" stroke="#c47f1a" stroke-width=".5"/><text x="12" y="18" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="sans-serif">!</text></svg><span class="notice-tip"><b>Important note:</b> All values shown are placeholders for demonstration only. This tool is a visualisation of how the analysis will work — none of the numbers are accurate and should not be used for any EPD, LCA study, or formal reporting.</span></span></div>
       <div class="results-panel">
         <div class="results-fixed">
           <div class="total-blk">
@@ -919,7 +918,7 @@ function renderRmSliders() {
         <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ms-blue);flex-shrink:0">Raw Material ${i+1}</span>
         <input type="text" class="rm-name-inp" data-idx="${i}"
           value="${escH(rm.name)}"
-          placeholder="Insert raw material name here"
+          placeholder="Enter raw material name here"
           style="flex:1;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
         <select class="rm-ef-sel" data-idx="${i}" title="Material category — sets the emission factor"
           style="width:auto;font-size:11px;padding:4px 28px 4px 8px;color:var(--ink-soft);border:1.5px solid var(--ms-lime);border-radius:4px">
@@ -954,7 +953,7 @@ function renderTransport(){
     const label = (rm.name && rm.name.trim()) ? rm.name : `Raw Material ${i+1}`;
     row.innerHTML = `
       <span class="tp-name" title="${escH(label)}">${escH(label)}</span>
-      <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Insert distance (km)"/>
+      <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Enter distance (km)"/>
       <span class="tp-unit">km</span>
     `;
     box.appendChild(row);
@@ -1098,6 +1097,12 @@ $('s-a5elec').addEventListener('input', e => { state.a5ElecKgKg=parseFloat(e.tar
 $('s-grid').addEventListener('change', e => { state.grid=e.target.value; updateSolarUI(); render(); });
 $('sol-kw').addEventListener('input', e => { state.solarKw=parseFloat(e.target.value)||0; updateSolarUI(); render(); });
 $('resetBtn').addEventListener('click', () => { setProduct(activeKey); $('s-product').value=activeKey; loadUI(); render(); });
+
+const noticeBtn = $('noticeBtn');
+if(noticeBtn){
+  noticeBtn.addEventListener('click', (e) => { e.stopPropagation(); noticeBtn.classList.toggle('active'); });
+  document.addEventListener('click', () => { noticeBtn.classList.remove('active'); });
+}
 
 /* ════════════════════════════════════════════
    RENDER RESULTS
