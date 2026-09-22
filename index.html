@@ -138,14 +138,20 @@ body.tool-mode .view{padding:0}
 body.tool-mode .tool-col-inputs > .panel{border:none;margin-top:0 !important}
 body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14px}
 
-.module-group{margin:0;padding:0}
-.module-group-header{
-  font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.14em;color:var(--ms-blue);
-  padding:10px 16px 6px;background:linear-gradient(to right,rgba(61,90,128,.06),transparent);
-  border-top:2px solid var(--ms-blue);
+.param-block[data-module]{margin-top:10px;border-radius:6px;border:1px solid var(--line-soft);border-left:4px solid var(--mod-color, var(--line))}
+.disclaimer-badge{
+  margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+  background:rgba(220,53,69,.9);color:#fff;font-size:9px;font-weight:700;
+  padding:3px 9px;border-radius:3px;cursor:default;position:relative;letter-spacing:.03em;
 }
-.module-group-header.a45{color:var(--a4);border-top-color:var(--a4);background:linear-gradient(to right,rgba(120,144,156,.06),transparent)}
+.disclaimer-badge svg{width:13px;height:13px;fill:#fff;flex-shrink:0}
+.disclaimer-badge .info-tip{
+  position:fixed;width:300px;font-size:11px;font-weight:500;letter-spacing:0;text-transform:none;
+  background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:6px;
+  padding:10px 12px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:999;
+  pointer-events:none;opacity:0;transition:opacity .15s;line-height:1.4;
+}
+.disclaimer-badge:hover .info-tip{opacity:1}
 @media(max-width:920px){
   .tool-grid{grid-template-columns:1fr;padding:10px;gap:10px}
   body.tool-mode{overflow:auto;padding-bottom:60px}
@@ -161,7 +167,6 @@ body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14p
 .param-block{padding:14px 16px 12px;border-bottom:1px solid var(--line-soft)}
 .param-block:last-child{border-bottom:none}
 /* color-coded left border per module */
-.param-block[data-module]{border-left:4px solid var(--mod-color, var(--line))}
 .param-block[data-module="a1"]{--mod-color:var(--a1)}
 .param-block[data-module="a2"]{--mod-color:var(--a2)}
 .param-block[data-module="a3"]{--mod-color:var(--a3)}
@@ -509,8 +514,6 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
       </div>
 
       <div class="panel">
-        <div class="module-group-header">Modules A1 – A3 · Cradle to Gate</div>
-
         <!-- PRODUCT PROPERTIES -->
         <div class="param-block">
           <div class="sec-strip">
@@ -638,8 +641,6 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           </div>
         </div>
 
-        <div class="module-group-header a45">Modules A4 – A5 · Beyond the Gate</div>
-
         <!-- LOGISTICS -->
         <div class="param-block" data-module="a4">
           <div class="sec-strip mod-a4">
@@ -680,7 +681,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
 
     <!-- ── RIGHT: RESULTS ── -->
     <div class="tool-col-results">
-      <div class="col-header col-header-results">Results <span class="info-ic" style="margin-left:auto;color:rgba(255,255,255,.7)">i<span class="info-tip" style="width:280px">All values shown are placeholders. This tool is only a visualisation of how the analysis will work — none of the numbers or results are accurate, and nothing here should be used for any EPD, LCA study, or formal reporting.</span></span></div>
+      <div class="col-header col-header-results">Results <span class="disclaimer-badge"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>Disclaimer<span class="info-tip">All values shown are placeholders. This tool is only a visualisation of how the analysis will work — none of the numbers or results are accurate, and nothing here should be used for any EPD, LCA study, or formal reporting.</span></span></div>
       <div class="results-panel">
         <div class="results-fixed">
           <div class="total-blk">
