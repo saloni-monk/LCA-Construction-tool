@@ -10,7 +10,7 @@
 <style>
 :root{
   --bg:#F7F8F6; --card:#FFFFFF; --ink:#1F2D3D;
-  --ink-soft:#2E4F75; --ink-faint:#8CA0B2;
+  --ink-soft:#2E4F75; --ink-faint:#5A7FA0;
   --line:#E2E6E0; --line-soft:#F0F2EE;
   --ms-blue:#2E4F75;
   --ms-navy:#213A57;
@@ -147,10 +147,9 @@ body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14p
   margin-left:8px;display:inline-flex;align-items:center;justify-content:center;
   width:20px;height:20px;border-radius:50%;background:#e89b2d;
   cursor:pointer;position:relative;flex-shrink:0;
-  font-family:Arial,sans-serif;font-size:13px;font-weight:900;
-  color:#fff;line-height:20px;text-align:center;font-style:normal;
-  padding:0;box-sizing:border-box;
+  padding:0;box-sizing:border-box;vertical-align:middle;
 }
+.notice-ic svg{width:12px;height:12px;fill:#fff;display:block}
 .notice-ic .notice-tip{
   position:fixed;width:280px;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;
   background:#fff;color:var(--ink);border:1px solid var(--line);border-left:3px solid #e89b2d;border-radius:6px;
@@ -400,9 +399,9 @@ select:focus,
 .a4-row .a4-val{font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .a4-row .a4-note{display:block;font-size:11px;color:rgba(255,255,255,.8);margin-top:3px}
 .chart-sec{padding:0 16px 8px}
-.mod-bar-strip{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--ms-navy);color:#fff;font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
-.mod-bar-strip .mbs-title{flex:1;font-size:11px;white-space:nowrap}
-.mod-bar-strip .mbs-col{text-align:right;white-space:nowrap;opacity:.85;font-size:9.5px}
+.mod-bar-strip{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--line-soft);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'IBM Plex Sans',sans-serif}
+.mod-bar-strip .mbs-title{flex:1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-navy);white-space:nowrap}
+.mod-bar-strip .mbs-col{text-align:right;white-space:nowrap;font-size:10px;font-weight:600;color:var(--ms-blue)}
 .mod-bar-strip .mbs-col-val{width:80px}
 .mod-bar-strip .mbs-col-pct{width:50px}
 .stage-bar{display:flex;height:24px;border:1px solid var(--ms-navy);overflow:hidden;margin-bottom:4px}
@@ -686,7 +685,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
 
     <!-- ── RIGHT: RESULTS ── -->
     <div class="tool-col-results">
-      <div class="col-header col-header-results">Results <span class="notice-ic" id="noticeBtn">!<span class="notice-tip"><b>Important note:</b> All values shown are placeholders for demonstration only. This tool is a visualisation of how the analysis will work — none of the numbers are accurate and should not be used for any EPD, LCA study, or formal reporting.</span></span></div>
+      <div class="col-header col-header-results">Results <span class="notice-ic" id="noticeBtn"><svg viewBox="0 0 24 24"><path d="M11 4h2v10h-2zm0 12h2v2h-2z"/></svg><span class="notice-tip"><b>Important note:</b> All values shown are placeholders for demonstration only. This tool is a visualisation of how the analysis will work — none of the numbers are accurate and should not be used for any EPD, LCA study, or formal reporting.</span></span></div>
       <div class="results-panel">
         <div class="results-fixed">
           <div class="total-blk">
@@ -957,7 +956,7 @@ function renderTransport(){
     const label = (rm.name && rm.name.trim()) ? rm.name : `Raw Material ${i+1}`;
     row.innerHTML = `
       <span class="tp-name" title="${escH(label)}">${escH(label)}</span>
-      <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Enter distance (km)"/>
+      <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Enter distance"/>
       <span class="tp-unit">km</span>
     `;
     box.appendChild(row);
