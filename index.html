@@ -389,14 +389,14 @@ select:focus,
 
 /* ══ RESULTS PANEL ══ */
 .results-panel{background:var(--card)}
-.total-blk{padding:14px 16px 12px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden;border-radius:0;
+.total-blk{padding:18px 16px 16px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden;border-radius:0;
   display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
 .total-blk::before{content:'';position:absolute;top:0;right:0;width:48px;height:48px;background:var(--ms-lime);clip-path:polygon(100% 0,0 0,100% 100%)}
-.total-col{display:flex;flex-direction:column;padding:4px 8px}
+.total-col{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 8px}
 .total-col:not(:first-child){border-left:1px solid rgba(255,255,255,.18)}
-.total-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.75);font-weight:600;margin-bottom:4px}
-.total-num{font-family:'Google Sans Flex',sans-serif;font-size:clamp(22px,3vw,30px);font-weight:700;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:#fff}
-.total-unit{font-family:'Google Sans Flex',sans-serif;font-size:10px;color:rgba(255,255,255,.7);font-weight:500;margin-top:3px}
+.total-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#fff;font-weight:600;margin-bottom:6px}
+.total-num{font-family:'Google Sans Flex',sans-serif;font-size:clamp(30px,4.5vw,42px);font-weight:700;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:#fff}
+.total-unit{font-family:'Google Sans Flex',sans-serif;font-size:12px;color:#fff;font-weight:500;margin-top:5px}
 .chart-sec{padding:12px 16px 8px}
 .mod-bar-strip{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--line-soft);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'Google Sans Flex','IBM Plex Sans',sans-serif}
 .mod-bar-strip .mbs-title{flex:1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-navy);white-space:nowrap}
