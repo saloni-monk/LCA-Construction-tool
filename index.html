@@ -6,7 +6,7 @@
 <title>LCA Sensitivity Tool For Construction Products</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Serif:ital@0;1&family=Playfair+Display:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Google+Sans+Flex:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Playfair+Display:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F7F8F6; --card:#FFFFFF; --ink:#1F2D3D;
@@ -21,7 +21,7 @@
   --a4:#7A9C4E; --a5:#B7CB32; --stgC:#B0846A; --stgD:#B7CB32;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.55}
+html,body{background:var(--bg);color:var(--ink);font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.55}
 body{min-height:100vh;padding-bottom:60px}
 
 /* ══ MASTHEAD — white, clean ══ */
@@ -42,7 +42,7 @@ body{min-height:100vh;padding-bottom:60px}
   color:var(--ms-navy);white-space:nowrap;line-height:1.1;
 }
 .reset-btn{
-  flex-shrink:0;font-family:'IBM Plex Sans',sans-serif;font-size:9px;font-weight:700;
+  flex-shrink:0;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:9px;font-weight:700;
   letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;
   border:1.5px solid rgba(255,255,255,.5);background:transparent;color:#fff;
   cursor:pointer;transition:all .15s;white-space:nowrap;border-radius:3px;margin-left:auto;
@@ -126,7 +126,7 @@ body.tool-mode .view{padding:0}
 
 /* column titles */
 .col-header{
-  font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:700;
+  font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:13px;font-weight:700;
   text-transform:uppercase;letter-spacing:.18em;
   padding:12px 20px;margin-bottom:0;position:sticky;top:0;z-index:5;
   display:flex;align-items:center;gap:10px;
@@ -223,12 +223,12 @@ input[type="range"]::-moz-range-thumb{
 .tp-name{flex:1;font-size:13px;font-weight:600;color:var(--ms-navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tp-input-wrap{display:flex;align-items:center;gap:8px}
 .tp-row .rm-km-inp{
-  flex-shrink:0;width:140px;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;
+  flex-shrink:0;width:140px;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;
   text-align:right;padding:7px 10px;border:1.5px solid var(--ms-lime);border-radius:5px;
   background:rgba(197,209,46,.10);color:var(--ms-navy);outline:none;
 }
 .tp-row .rm-km-inp:focus{background:#fff;outline:2px solid var(--ms-blue)}
-.tp-row .rm-km-inp::placeholder{font-weight:500;color:var(--ink-faint);font-size:13px;text-align:left;font-family:'IBM Plex Sans',sans-serif}
+.tp-row .rm-km-inp::placeholder{font-weight:500;color:var(--ink-faint);font-size:13px;text-align:left;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif}
 .tp-unit{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--ink-soft)}
 
 /* ══ INFO (i) ICON + TOOLTIP ══ */
@@ -246,7 +246,7 @@ input[type="range"]::-moz-range-thumb{
   width:240px;
   background:var(--ms-navy);color:#fff;
   font-size:11.5px;font-weight:400;font-style:normal;line-height:1.55;
-  font-family:'IBM Plex Sans',sans-serif;letter-spacing:0;
+  font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;letter-spacing:0;
   text-transform:none;text-align:left;
   padding:10px 13px;border-radius:8px;
   opacity:0;visibility:hidden;transition:opacity .15s;
@@ -303,7 +303,7 @@ body.tool-mode footer{margin-top:18px;padding:10px 0}
 @media(max-width:620px){.pair{grid-template-columns:1fr}.pair > .param-block:first-child{border-right:none}}
 
 select{
-  font-family:'IBM Plex Sans',sans-serif;font-size:13px;color:var(--ink);
+  font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:13px;color:var(--ink);
   padding:9px 12px;border:1.5px solid var(--line);border-radius:5px;background:var(--card);
   cursor:pointer;width:100%;margin-top:4px;
   -webkit-appearance:none;appearance:none;
@@ -360,7 +360,7 @@ select:focus,
 .wastage-sep .solar-sep-icon{color:var(--a3)}
 .solar-kw-lbl{font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px}
 .solar-kw-input{
-  font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;
+  font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;
   background:rgba(197,209,46,.08);border:1.5px solid var(--ms-lime);border-radius:5px;
   padding:9px 12px;width:100%;outline:none;color:var(--ink);
 }
@@ -399,7 +399,7 @@ select:focus,
 .a4-row .a4-val{font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .a4-row .a4-note{display:block;font-size:11px;color:rgba(255,255,255,.8);margin-top:3px}
 .chart-sec{padding:12px 16px 8px}
-.mod-bar-strip{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--line-soft);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'IBM Plex Sans',sans-serif}
+.mod-bar-strip{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--line-soft);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'Google Sans Flex','IBM Plex Sans',sans-serif}
 .mod-bar-strip .mbs-title{flex:1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-navy);white-space:nowrap}
 .mod-bar-strip .mbs-col{text-align:center;white-space:nowrap;font-size:12px;font-weight:700;color:var(--ms-blue)}
 .mod-bar-strip .mbs-col-val{width:86px;border-left:1px solid var(--line);padding:0 4px;box-sizing:content-box}
@@ -420,6 +420,11 @@ select:focus,
 
 /* A1 breakdown */
 .a1-breakdown{margin:0 0 6px 0;padding:2px 0 0 0;border-left:none}
+.a1-breakdown{overflow:hidden;transition:max-height .3s ease;max-height:500px}
+.a1-breakdown.collapsed{max-height:0}
+.a1-toggle{cursor:pointer}
+.a1-toggle .a1-arrow{display:inline-block;transition:transform .2s;font-size:8px;margin-right:4px}
+.a1-toggle.collapsed .a1-arrow{transform:rotate(-90deg)}
 .a1-sub-row{display:flex;align-items:center;gap:10px;margin-bottom:4px;font-size:11.5px}
 .a1-sub-row:last-child{margin-bottom:0}
 .a1-sub-name{flex-shrink:0;width:172px;padding-left:40px;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);font-weight:600;font-size:11.5px;border-left:2px solid var(--a1);margin-left:0}
@@ -462,7 +467,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
       <span class="mh-logo">
         <img src="monk-logo.png" alt="Monk Spaces"/>
       </span>
-      <span class="mh-title" style="display:flex;flex-direction:column;line-height:1.2">LCA Sensitivity Tool<span style="font-size:0.55em;font-weight:500;letter-spacing:.02em;margin-top:1px">For Construction Products</span></span>
+      <span class="mh-title" style="display:flex;flex-direction:column;line-height:1.2">LCA Sensitivity Tool<span style="font-size:0.55em;font-weight:500;letter-spacing:.02em;margin-top:1px">For Construction Products</span><span style="font-size:0.38em;font-weight:400;color:#e89b2d;letter-spacing:.01em;margin-top:2px;font-family:'Google Sans Flex',sans-serif;opacity:.9">This is a representational mockup only — data shown is not verified and must not be used for reporting.</span></span>
     </div>
     <div class="mh-actions">
       <div class="mh-rail" aria-label="Life-cycle stages A1 to A5">
@@ -554,8 +559,8 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           </div>
         </div>
 
-        <!-- TRANSPORT (A2) -->
-        <div class="param-block" data-module="a2">
+        <!-- TRANSPORT (A2) — now embedded in A1 raw material cards -->
+        <div class="param-block" data-module="a2" style="display:none">
           <div class="sec-strip mod-a2">
             <span class="sec-strip-label">Raw Material Transport</span>
             <span class="sec-strip-line"></span>
@@ -922,7 +927,7 @@ function renderRmSliders() {
         <input type="text" class="rm-name-inp" data-idx="${i}"
           value="${escH(rm.name)}"
           placeholder="Enter raw material name here"
-          style="flex:1;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
+          style="flex:1;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
         <select class="rm-ef-sel" data-idx="${i}" title="Material category — sets the emission factor"
           style="width:auto;font-size:11px;padding:4px 28px 4px 8px;color:var(--ink-soft);border:1.5px solid var(--ms-lime);border-radius:4px">
           ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
@@ -938,6 +943,12 @@ function renderRmSliders() {
       </div>
       <input type="range" class="rm-pct-slider" data-idx="${i}" min="0" max="100" step="1" value="${rm.pct}"/>
       <div class="range-hint"><span>0%</span><span>100%</span></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)">
+        <span style="font-size:11px;font-weight:600;color:var(--ink-soft);white-space:nowrap">Transport distance</span>
+        <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Enter distance"
+          style="flex:1;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--ink-soft)">km</span>
+      </div>
     `;
     container.appendChild(div);
   });
@@ -973,6 +984,10 @@ $('rmSliders').addEventListener('input', e => {
     $(`rm-pct-badge-${i}`).textContent = el.value + '%';
     updateSliderFill(el);
     updateResidual(); render();
+  }
+  if(el.classList.contains('rm-km-inp')) {
+    state.rawMaterials[+el.dataset.idx].km = Math.max(0, +el.value || 0);
+    render();
   }
 });
 $('rmSliders').addEventListener('change', e => {
@@ -1145,7 +1160,13 @@ function render() {
     mbox.appendChild(row);
 
     if(m.tag==='A1' && r.rmContribs.length){
+      row.classList.add('a1-toggle');
+      row.querySelector('.mod-bar-name').innerHTML = '<span class="a1-arrow">&#9660;</span>' + row.querySelector('.mod-bar-name').textContent;
       const sub = document.createElement('div'); sub.className='a1-breakdown';
+      row.addEventListener('click', ()=>{
+        row.classList.toggle('collapsed');
+        sub.classList.toggle('collapsed');
+      });
       r.rmContribs.forEach(rm=>{
         const bw = (rm.a1/maxMod)*100;
         const share = r.a1>0 ? (rm.a1/r.a1*100) : 0;
