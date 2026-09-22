@@ -145,11 +145,13 @@ body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14p
 .param-block[data-module]{margin-top:10px;border-radius:6px;border:1px solid var(--line-soft);border-left:4px solid var(--mod-color, var(--line))}
 .notice-ic{
   margin-left:8px;display:inline-flex;align-items:center;justify-content:center;
-  width:20px;height:20px;border-radius:50%;background:#e89b2d;
+  width:22px;height:22px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#f5c45a 0%,#e89b2d 70%);
+  border:2px solid #3a3a3a;box-shadow:0 1px 3px rgba(0,0,0,.25);
   cursor:pointer;position:relative;flex-shrink:0;
   padding:0;box-sizing:border-box;vertical-align:middle;
 }
-.notice-ic svg{width:12px;height:12px;fill:#fff;display:block}
+.notice-ic svg{width:14px;height:14px;fill:#1a1a1a;display:block}
 .notice-ic .notice-tip{
   position:fixed;width:280px;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;
   background:#fff;color:var(--ink);border:1px solid var(--line);border-left:3px solid #e89b2d;border-radius:6px;
@@ -685,7 +687,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
 
     <!-- ── RIGHT: RESULTS ── -->
     <div class="tool-col-results">
-      <div class="col-header col-header-results">Results <span class="notice-ic" id="noticeBtn"><svg viewBox="0 0 24 24"><path d="M11 4h2v10h-2zm0 12h2v2h-2z"/></svg><span class="notice-tip"><b>Important note:</b> All values shown are placeholders for demonstration only. This tool is a visualisation of how the analysis will work — none of the numbers are accurate and should not be used for any EPD, LCA study, or formal reporting.</span></span></div>
+      <div class="col-header col-header-results">Results <span class="notice-ic" id="noticeBtn"><svg viewBox="0 0 24 24"><path d="M12 3c-.8 0-1.5.5-1.7 1.2L10 6v6.5c0 .8.9 1.5 2 1.5s2-.7 2-1.5V6l-.3-1.8C13.5 3.5 12.8 3 12 3z"/><circle cx="12" cy="17.5" r="2"/></svg><span class="notice-tip"><b>Important note:</b> All values shown are placeholders for demonstration only. This tool is a visualisation of how the analysis will work — none of the numbers are accurate and should not be used for any EPD, LCA study, or formal reporting.</span></span></div>
       <div class="results-panel">
         <div class="results-fixed">
           <div class="total-blk">
