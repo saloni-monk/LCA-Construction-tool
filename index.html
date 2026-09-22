@@ -389,15 +389,14 @@ select:focus,
 
 /* ══ RESULTS PANEL ══ */
 .results-panel{background:var(--card)}
-.total-blk{padding:16px 22px 14px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden;border-radius:0}
+.total-blk{padding:14px 16px 12px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden;border-radius:0;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
 .total-blk::before{content:'';position:absolute;top:0;right:0;width:48px;height:48px;background:var(--ms-lime);clip-path:polygon(100% 0,0 0,100% 100%)}
-.total-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#fff;font-weight:700;margin-bottom:4px}
-.total-num{font-family:'Instrument Serif',serif;font-size:clamp(34px,4vw,48px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.total-unit{font-family:'Google Sans Flex','IBM Plex Mono',monospace;font-size:14px;color:rgba(255,255,255,.9);font-weight:600}
-.a4-row{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.a4-row .a4-lbl{font-size:13px;color:rgba(255,255,255,.95);font-weight:600;display:flex;align-items:center;gap:6px}
-.a4-row .a4-val{font-family:'Google Sans Flex','IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
-.a4-row .a4-note{display:block;font-size:11px;color:rgba(255,255,255,.8);margin-top:3px}
+.total-col{display:flex;flex-direction:column;padding:4px 8px}
+.total-col:not(:first-child){border-left:1px solid rgba(255,255,255,.18)}
+.total-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.75);font-weight:600;margin-bottom:4px}
+.total-num{font-family:'Google Sans Flex',sans-serif;font-size:clamp(22px,3vw,30px);font-weight:700;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:#fff}
+.total-unit{font-family:'Google Sans Flex',sans-serif;font-size:10px;color:rgba(255,255,255,.7);font-weight:500;margin-top:3px}
 .chart-sec{padding:12px 16px 8px}
 .mod-bar-strip{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--line-soft);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'Google Sans Flex','IBM Plex Sans',sans-serif}
 .mod-bar-strip .mbs-title{flex:1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-navy);white-space:nowrap}
@@ -694,27 +693,20 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
       <div class="results-panel">
         <div class="results-fixed">
           <div class="total-blk">
-            <div class="total-lbl">Cradle-to-gate · Modules A1–A3</div>
-            <div class="total-num"><span id="r-total">—</span><span class="total-unit">kgCO₂e / m³</span></div>
-            <div class="a4-row">
-              <span class="a4-lbl">
-                + Site transport (A4)
-                <span class="info-ic ">i<span class="info-tip">Reported separately from the A1–A3 total.</span></span>
-              </span>
-              <span style="text-align:right">
-                <span class="a4-val" id="r-a4">—</span>
-                <span class="a4-note">kgCO₂e / m³</span>
-              </span>
+            <div class="total-col">
+              <div class="total-lbl">A1–A3 · Cradle-to-gate</div>
+              <div class="total-num" id="r-total">—</div>
+              <div class="total-unit">kgCO₂e / m³</div>
             </div>
-            <div class="a4-row">
-              <span class="a4-lbl">
-                + Installation (A5)
-                <span class="info-ic ">i<span class="info-tip">Reported separately from the A1–A3 total.</span></span>
-              </span>
-              <span style="text-align:right">
-                <span class="a4-val" id="r-a5">—</span>
-                <span class="a4-note">kgCO₂e / m³</span>
-              </span>
+            <div class="total-col">
+              <div class="total-lbl">A4 · Site transport</div>
+              <div class="total-num" id="r-a4">—</div>
+              <div class="total-unit">kgCO₂e / m³</div>
+            </div>
+            <div class="total-col">
+              <div class="total-lbl">A5 · Installation</div>
+              <div class="total-num" id="r-a5">—</div>
+              <div class="total-unit">kgCO₂e / m³</div>
             </div>
           </div>
 
