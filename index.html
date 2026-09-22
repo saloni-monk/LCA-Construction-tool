@@ -423,7 +423,7 @@ select:focus,
 .a1-breakdown{overflow:hidden;transition:max-height .3s ease;max-height:500px}
 .a1-breakdown.collapsed{max-height:0}
 .a1-toggle{cursor:pointer}
-.a1-toggle .a1-arrow{display:inline-block;transition:transform .2s;font-size:8px;margin-right:4px}
+.a1-toggle .a1-arrow{display:inline-block;transition:transform .2s;font-size:12px;margin-left:6px;color:var(--ms-blue)}
 .a1-toggle.collapsed .a1-arrow{transform:rotate(-90deg)}
 .a1-sub-row{display:flex;align-items:center;gap:10px;margin-bottom:4px;font-size:11.5px}
 .a1-sub-row:last-child{margin-bottom:0}
@@ -1162,7 +1162,7 @@ function render() {
 
     if(m.tag==='A1' && r.rmContribs.length){
       row.classList.add('a1-toggle');
-      row.querySelector('.mod-bar-name').innerHTML = '<span class="a1-arrow">&#9660;</span>' + row.querySelector('.mod-bar-name').textContent;
+      row.querySelector('.mod-bar-name').innerHTML = row.querySelector('.mod-bar-name').textContent + '<span class="a1-arrow">&#9660;</span>';
       const sub = document.createElement('div'); sub.className='a1-breakdown';
       row.addEventListener('click', ()=>{
         row.classList.toggle('collapsed');
