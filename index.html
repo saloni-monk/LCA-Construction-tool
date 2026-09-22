@@ -139,19 +139,19 @@ body.tool-mode .tool-col-inputs > .panel{border:none;margin-top:0 !important}
 body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14px}
 
 .param-block[data-module]{margin-top:10px;border-radius:6px;border:1px solid var(--line-soft);border-left:4px solid var(--mod-color, var(--line))}
-.disclaimer-badge{
-  margin-left:auto;display:inline-flex;align-items:center;gap:5px;
-  background:rgba(220,53,69,.9);color:#fff;font-size:9px;font-weight:700;
-  padding:3px 9px;border-radius:3px;cursor:default;position:relative;letter-spacing:.03em;
+.notice-ic{
+  margin-left:auto;display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(230,150,30,.85);color:#fff;cursor:default;position:relative;
+  font-size:13px;font-weight:800;line-height:1;font-style:normal;
 }
-.disclaimer-badge svg{width:13px;height:13px;fill:#fff;flex-shrink:0}
-.disclaimer-badge .info-tip{
-  position:fixed;width:300px;font-size:11px;font-weight:500;letter-spacing:0;text-transform:none;
+.notice-ic .info-tip{
+  position:fixed;width:280px;font-size:11.5px;font-weight:500;letter-spacing:0;text-transform:none;
   background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:6px;
   padding:10px 12px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:999;
-  pointer-events:none;opacity:0;transition:opacity .15s;line-height:1.4;
+  pointer-events:none;opacity:0;transition:opacity .15s;line-height:1.45;
 }
-.disclaimer-badge:hover .info-tip{opacity:1}
+.notice-ic:hover .info-tip{opacity:1}
 @media(max-width:920px){
   .tool-grid{grid-template-columns:1fr;padding:10px;gap:10px}
   body.tool-mode{overflow:auto;padding-bottom:60px}
@@ -681,7 +681,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
 
     <!-- ── RIGHT: RESULTS ── -->
     <div class="tool-col-results">
-      <div class="col-header col-header-results">Results <span class="disclaimer-badge"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>Disclaimer<span class="info-tip">All values shown are placeholders. This tool is only a visualisation of how the analysis will work — none of the numbers or results are accurate, and nothing here should be used for any EPD, LCA study, or formal reporting.</span></span></div>
+      <div class="col-header col-header-results">Results <span class="notice-ic">!<span class="info-tip"><b>Important note:</b> All values shown are placeholders for demonstration only. This tool is a visualisation of how the analysis will work — none of the numbers are accurate and should not be used for any EPD, LCA study, or formal reporting.</span></span></div>
       <div class="results-panel">
         <div class="results-fixed">
           <div class="total-blk">
