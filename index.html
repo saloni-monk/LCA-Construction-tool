@@ -315,6 +315,22 @@ select:focus{outline:2px solid var(--ms-blue);outline-offset:0}
 
 .select-lbl{font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px;display:block}
 
+/* Product image dropdown */
+.pd-wrap{position:relative;width:100%}
+.pd-selected{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1.5px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;transition:border-color .15s}
+.pd-selected:hover{border-color:var(--ms-blue)}
+.pd-arrow{margin-left:auto;font-size:10px;color:var(--ink-soft);transition:transform .2s}
+.pd-wrap.open .pd-arrow{transform:rotate(180deg)}
+.pd-img{width:52px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#f5f5f5;border-radius:4px;overflow:hidden}
+.pd-img svg{width:48px;height:34px}
+.pd-txt{font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink)}
+.pd-menu{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1.5px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:50;display:none;overflow:hidden}
+.pd-wrap.open .pd-menu{display:block}
+.pd-item{display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;transition:background .1s}
+.pd-item:hover{background:#f0f4f8}
+.pd-item.active{background:#e8f0fa}
+.pd-name{font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ink)}
+
 /* Editable field affordance */
 select,
 .solar-kw-input,
@@ -508,12 +524,37 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
             <span class="sec-strip-line"></span>
           </div>
           <span class="select-lbl">Select your product</span>
-          <select id="s-product">
+          <select id="s-product" style="display:none">
             <option value="solidblock">Solid Concrete Block</option>
             <option value="hollowblock">Hollow Concrete Block</option>
             <option value="interlock">Interlocking Paver</option>
             <option value="flatpaver">Flat Paver / Kerb Stone</option>
           </select>
+          <div class="pd-wrap" id="pdWrap">
+            <div class="pd-selected" id="pdSelected">
+              <span class="pd-img" id="pdImg"></span>
+              <span class="pd-txt" id="pdTxt">Solid Concrete Block</span>
+              <span class="pd-arrow">&#9662;</span>
+            </div>
+            <div class="pd-menu" id="pdMenu">
+              <div class="pd-item" data-val="solidblock">
+                <span class="pd-img"><svg viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="12" width="76" height="40" rx="3" fill="#B0B0B0" stroke="#888" stroke-width="1.5"/><rect x="6" y="16" width="68" height="32" rx="2" fill="#C8C8C8"/><rect x="10" y="20" width="60" height="24" rx="1" fill="#A0A0A0"/><line x1="2" y1="12" x2="14" y2="2" stroke="#888" stroke-width="1.5"/><line x1="78" y1="12" x2="66" y2="2" stroke="#888" stroke-width="1.5"/><line x1="14" y1="2" x2="66" y2="2" stroke="#888" stroke-width="1.5"/><line x1="78" y1="12" x2="78" y2="52" stroke="#888" stroke-width="1.5"/></svg></span>
+                <span class="pd-name">Solid Concrete Block</span>
+              </div>
+              <div class="pd-item" data-val="hollowblock">
+                <span class="pd-img"><svg viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="12" width="76" height="40" rx="3" fill="#B0B0B0" stroke="#888" stroke-width="1.5"/><rect x="10" y="20" width="18" height="24" rx="2" fill="#E8E8E8" stroke="#999"/><rect x="32" y="20" width="18" height="24" rx="2" fill="#E8E8E8" stroke="#999"/><rect x="54" y="20" width="18" height="24" rx="2" fill="#E8E8E8" stroke="#999"/><line x1="2" y1="12" x2="14" y2="2" stroke="#888" stroke-width="1.5"/><line x1="78" y1="12" x2="66" y2="2" stroke="#888" stroke-width="1.5"/><line x1="14" y1="2" x2="66" y2="2" stroke="#888" stroke-width="1.5"/></svg></span>
+                <span class="pd-name">Hollow Concrete Block</span>
+              </div>
+              <div class="pd-item" data-val="interlock">
+                <span class="pd-img"><svg viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 8 L40 2 L60 8 L60 44 L50 50 L40 44 L30 50 L20 44 Z" fill="#B8A88A" stroke="#8B7D6B" stroke-width="1.5"/><path d="M25 16 L40 11 L55 16 L55 38 L48 42 L40 38 L32 42 L25 38 Z" fill="#CFC0A0" stroke="#8B7D6B" stroke-width="1"/><line x1="40" y1="11" x2="40" y2="38" stroke="#8B7D6B" stroke-width="0.8" stroke-dasharray="2 2"/></svg></span>
+                <span class="pd-name">Interlocking Paver</span>
+              </div>
+              <div class="pd-item" data-val="flatpaver">
+                <span class="pd-img"><svg viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="18" width="64" height="28" rx="3" fill="#B8A88A" stroke="#8B7D6B" stroke-width="1.5"/><rect x="12" y="22" width="56" height="20" rx="2" fill="#CFC0A0"/><line x1="8" y1="18" x2="16" y2="10" stroke="#8B7D6B" stroke-width="1.5"/><line x1="72" y1="18" x2="64" y2="10" stroke="#8B7D6B" stroke-width="1.5"/><line x1="16" y1="10" x2="64" y2="10" stroke="#8B7D6B" stroke-width="1.5"/><line x1="72" y1="18" x2="72" y2="46" stroke="#8B7D6B" stroke-width="1.5"/></svg></span>
+                <span class="pd-name">Flat Paver / Kerb Stone</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -898,6 +939,24 @@ $('s-product').addEventListener('change', e => {
   baseline = calculate(PRODUCTS[key]);
   loadUI(); render();
 });
+
+/* Custom image dropdown */
+(function(){
+  const wrap=$('pdWrap'), sel=$('pdSelected'), menu=$('pdMenu'), txt=$('pdTxt'), img=$('pdImg'), nativeSel=$('s-product');
+  const items=menu.querySelectorAll('.pd-item');
+  function pickItem(val){
+    items.forEach(it=>it.classList.toggle('active',it.dataset.val===val));
+    const active=menu.querySelector('.pd-item[data-val="'+val+'"]');
+    if(active){txt.textContent=active.querySelector('.pd-name').textContent;img.innerHTML=active.querySelector('.pd-img').innerHTML;}
+    nativeSel.value=val;nativeSel.dispatchEvent(new Event('change'));
+    wrap.classList.remove('open');
+  }
+  sel.addEventListener('click',()=>wrap.classList.toggle('open'));
+  items.forEach(it=>it.addEventListener('click',()=>pickItem(it.dataset.val)));
+  document.addEventListener('click',e=>{if(!wrap.contains(e.target))wrap.classList.remove('open');});
+  const first=menu.querySelector('.pd-item');
+  if(first){txt.textContent=first.querySelector('.pd-name').textContent;img.innerHTML=first.querySelector('.pd-img').innerHTML;first.classList.add('active');}
+})();
 
 /* ════════════════════════════════════════════
    RAW MATERIAL SLIDERS (dynamic)
