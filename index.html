@@ -95,33 +95,27 @@ body.tool-mode .container{max-width:100%;padding:0}
 .tool-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:0;align-items:start;
+  gap:12px;align-items:start;
   padding:14px;
 }
 .tool-col-inputs,.tool-col-results{
   background:var(--card);
-  border:1px solid var(--line);
+  border:none;
+  border-radius:10px;
 }
 .tool-col-inputs{
-  border-right:none;
-  border-radius:10px 0 0 10px;
   height:var(--tool-h, calc(100vh - 92px));
   overflow-y:auto;overflow-x:hidden;
-  scrollbar-width:thin;scrollbar-color:var(--ms-blue) var(--line-soft);
+  scrollbar-width:auto;scrollbar-color:var(--ms-blue) var(--line-soft);
 }
-.tool-col-inputs::-webkit-scrollbar{width:8px}
-.tool-col-inputs::-webkit-scrollbar-track{background:var(--line-soft)}
-.tool-col-inputs::-webkit-scrollbar-thumb{background:var(--ms-blue);border-radius:5px}
+.tool-col-inputs::-webkit-scrollbar{width:10px}
+.tool-col-inputs::-webkit-scrollbar-track{background:var(--line-soft);border-radius:5px}
+.tool-col-inputs::-webkit-scrollbar-thumb{background:var(--ms-blue);border-radius:5px;border:2px solid var(--line-soft)}
 .tool-col-results{
-  border-radius:0 10px 10px 0;
   position:sticky;top:0;
   max-height:var(--tool-h, calc(100vh - 92px));
-  overflow-y:auto;
-  scrollbar-width:thin;scrollbar-color:var(--ms-blue) var(--line-soft);
+  overflow:hidden;display:flex;flex-direction:column;
 }
-.tool-col-results::-webkit-scrollbar{width:8px}
-.tool-col-results::-webkit-scrollbar-track{background:var(--line-soft)}
-.tool-col-results::-webkit-scrollbar-thumb{background:var(--ms-blue);border-radius:5px}
 
 body.tool-mode{padding-bottom:0;overflow:hidden}
 body.tool-mode .view{padding:0}
@@ -139,15 +133,23 @@ body.tool-mode .view{padding:0}
 .col-header-results{background:var(--ms-blue);color:#fff}
 .col-header-results::before{background:var(--ms-lime)}
 
-.tool-col-inputs > :not(.col-header){margin-left:16px;margin-right:16px}
+.tool-col-inputs > :not(.col-header){margin-left:0;margin-right:0}
 .col-body-pad{padding:10px 14px 12px}
-body.tool-mode .tool-col-inputs > .panel{border:none;margin-top:14px !important}
+body.tool-mode .tool-col-inputs > .panel{border:none;margin-top:0 !important}
 body.tool-mode .tool-col-inputs > :not(.col-header):first-of-type{margin-top:14px}
 
+.module-group{margin:0;padding:0}
+.module-group-header{
+  font-family:'IBM Plex Sans',sans-serif;font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--ms-blue);
+  padding:10px 16px 6px;background:linear-gradient(to right,rgba(61,90,128,.06),transparent);
+  border-top:2px solid var(--ms-blue);
+}
+.module-group-header.a45{color:var(--a4);border-top-color:var(--a4);background:linear-gradient(to right,rgba(120,144,156,.06),transparent)}
 @media(max-width:920px){
   .tool-grid{grid-template-columns:1fr;padding:10px;gap:10px}
   body.tool-mode{overflow:auto;padding-bottom:60px}
-  .tool-col-inputs{height:auto;overflow:visible;border-right:1px solid var(--line);border-radius:10px}
+  .tool-col-inputs{height:auto;overflow:visible;border-radius:10px}
   .tool-col-results{position:static;max-height:none;overflow:visible;border-radius:10px}
   .results-panel{max-height:none;display:block}
   .results-scroll{overflow:visible;flex:none}
@@ -507,6 +509,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
       </div>
 
       <div class="panel">
+        <div class="module-group-header">Modules A1 – A3 · Cradle to Gate</div>
 
         <!-- PRODUCT PROPERTIES -->
         <div class="param-block">
@@ -635,6 +638,8 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
           </div>
         </div>
 
+        <div class="module-group-header a45">Modules A4 – A5 · Beyond the Gate</div>
+
         <!-- LOGISTICS -->
         <div class="param-block" data-module="a4">
           <div class="sec-strip mod-a4">
@@ -675,7 +680,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
 
     <!-- ── RIGHT: RESULTS ── -->
     <div class="tool-col-results">
-      <div class="col-header col-header-results">Results</div>
+      <div class="col-header col-header-results">Results <span class="info-ic" style="margin-left:auto;color:rgba(255,255,255,.7)">i<span class="info-tip" style="width:280px">All values shown are placeholders. This tool is only a visualisation of how the analysis will work — none of the numbers or results are accurate, and nothing here should be used for any EPD, LCA study, or formal reporting.</span></span></div>
       <div class="results-panel">
         <div class="results-fixed">
           <div class="total-blk">
@@ -723,10 +728,10 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
         </div>
 
         <div class="results-scroll">
-          <div class="table-sec">
-            <div class="disclaimer-box">
+          <div class="table-sec" style="display:none">
+            <div class="disclaimer-box" style="display:none">
               <span class="disclaimer-ic">!</span>
-              <div>All values shown are placeholders. This tool is only a visualisation of how the analysis will work — none of the numbers or results are accurate, and nothing here should be used for any EPD, LCA study, or formal reporting.</div>
+              <div></div>
             </div>
           </div>
         </div>
