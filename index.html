@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Construction LCA Tool — Monk Spaces</title>
+<title>Sensitivity LCA Tool — Construction Products</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -223,12 +223,12 @@ input[type="range"]::-moz-range-thumb{
 .tp-name{flex:1;font-size:13px;font-weight:600;color:var(--ms-navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tp-input-wrap{display:flex;align-items:center;gap:8px}
 .tp-row .rm-km-inp{
-  flex-shrink:0;width:140px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;
+  flex-shrink:0;width:140px;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;
   text-align:right;padding:7px 10px;border:1.5px solid var(--ms-lime);border-radius:5px;
   background:rgba(197,209,46,.10);color:var(--ms-navy);outline:none;
 }
 .tp-row .rm-km-inp:focus{background:#fff;outline:2px solid var(--ms-blue)}
-.tp-row .rm-km-inp::placeholder{font-weight:400;color:var(--ink-faint);font-size:11px;text-align:left}
+.tp-row .rm-km-inp::placeholder{font-weight:500;color:var(--ink-faint);font-size:13px;text-align:left;font-family:'IBM Plex Sans',sans-serif}
 .tp-unit{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--ink-soft)}
 
 /* ══ INFO (i) ICON + TOOLTIP ══ */
@@ -360,8 +360,8 @@ select:focus,
 .wastage-sep .solar-sep-icon{color:var(--a3)}
 .solar-kw-lbl{font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px}
 .solar-kw-input{
-  font-family:'IBM Plex Mono',monospace;font-size:14px;
-  background:rgba(197,209,46,.08);border:1.5px solid var(--line);border-radius:5px;
+  font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;
+  background:rgba(197,209,46,.08);border:1.5px solid var(--ms-lime);border-radius:5px;
   padding:9px 12px;width:100%;outline:none;color:var(--ink);
 }
 .solar-kw-input:focus{outline:2px solid var(--ms-blue)}
@@ -401,9 +401,9 @@ select:focus,
 .chart-sec{padding:12px 16px 8px}
 .mod-bar-strip{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--line-soft);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'IBM Plex Sans',sans-serif}
 .mod-bar-strip .mbs-title{flex:1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-navy);white-space:nowrap}
-.mod-bar-strip .mbs-col{text-align:right;white-space:nowrap;font-size:10px;font-weight:600;color:var(--ms-blue)}
-.mod-bar-strip .mbs-col-val{width:80px;border-left:1px solid var(--line);padding-left:6px;box-sizing:content-box}
-.mod-bar-strip .mbs-col-pct{width:50px}
+.mod-bar-strip .mbs-col{text-align:center;white-space:nowrap;font-size:10px;font-weight:600;color:var(--ms-blue)}
+.mod-bar-strip .mbs-col-val{width:86px;border-left:1px solid var(--line);padding:0 4px;box-sizing:content-box}
+.mod-bar-strip .mbs-col-pct{width:50px;border-left:1px solid var(--line);padding:0 4px;box-sizing:content-box}
 .stage-bar{display:flex;height:24px;border:1px solid var(--ms-navy);overflow:hidden;margin-bottom:4px}
 
 .mod-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
@@ -412,8 +412,8 @@ select:focus,
 .mod-bar-name{font-size:12px;font-weight:600;color:var(--ms-navy);line-height:1.2}
 .mod-bar-track{flex:1;height:18px;background:var(--line-soft);border-radius:3px;overflow:hidden;position:relative}
 .mod-bar-fill{height:100%;border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1);min-width:2px}
-.mod-bar-val{flex-shrink:0;width:80px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--ms-navy);font-variant-numeric:tabular-nums;border-left:1px solid var(--line-soft);padding-left:6px;box-sizing:content-box}
-.mod-bar-pct{flex-shrink:0;width:50px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--ms-blue);font-variant-numeric:tabular-nums}
+.mod-bar-val{flex-shrink:0;width:86px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--ms-navy);font-variant-numeric:tabular-nums;border-left:1px solid var(--line-soft);padding:0 4px;box-sizing:content-box}
+.mod-bar-pct{flex-shrink:0;width:50px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--ms-blue);font-variant-numeric:tabular-nums;border-left:1px solid var(--line-soft);padding:0 4px;box-sizing:content-box}
 .legend{display:flex;flex-wrap:wrap;gap:9px 14px;font-size:11px;color:var(--ink-soft)}
 .leg{display:flex;align-items:center;gap:5px}
 .leg-dot{width:9px;height:9px;flex-shrink:0;border-radius:2px}
@@ -425,8 +425,8 @@ select:focus,
 .a1-sub-name{flex-shrink:0;width:172px;padding-left:40px;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);font-weight:600;font-size:11.5px;border-left:2px solid var(--a1);margin-left:0}
 .a1-sub-track{flex:1;height:9px;background:var(--line-soft);border-radius:2px;overflow:hidden}
 .a1-sub-fill{height:100%;background:var(--a1);opacity:.62;border-radius:2px;transition:width .35s}
-.a1-sub-val{flex-shrink:0;width:80px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ms-navy);font-weight:700;font-variant-numeric:tabular-nums;border-left:1px solid var(--line-soft);padding-left:6px;box-sizing:content-box}
-.a1-sub-pct{flex-shrink:0;width:50px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;color:var(--ms-blue);font-variant-numeric:tabular-nums}
+.a1-sub-val{flex-shrink:0;width:86px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ms-navy);font-weight:700;font-variant-numeric:tabular-nums;border-left:1px solid var(--line-soft);padding:0 4px;box-sizing:content-box}
+.a1-sub-pct{flex-shrink:0;width:50px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;color:var(--ms-blue);font-variant-numeric:tabular-nums;border-left:1px solid var(--line-soft);padding:0 4px;box-sizing:content-box}
 
 .table-sec{padding:6px 22px 14px}
 
@@ -462,7 +462,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
       <span class="mh-logo">
         <img src="monk-logo.png" alt="Monk Spaces"/>
       </span>
-      <span class="mh-title">Construction LCA Tool</span>
+      <span class="mh-title">Sensitivity LCA Tool <span style="font-weight:300;opacity:.7;font-size:0.7em">— Construction Products</span></span>
     </div>
     <div class="mh-actions">
       <div class="mh-rail" aria-label="Life-cycle stages A1 to A5">
@@ -922,7 +922,7 @@ function renderRmSliders() {
         <input type="text" class="rm-name-inp" data-idx="${i}"
           value="${escH(rm.name)}"
           placeholder="Enter raw material name here"
-          style="flex:1;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
+          style="flex:1;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
         <select class="rm-ef-sel" data-idx="${i}" title="Material category — sets the emission factor"
           style="width:auto;font-size:11px;padding:4px 28px 4px 8px;color:var(--ink-soft);border:1.5px solid var(--ms-lime);border-radius:4px">
           ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
