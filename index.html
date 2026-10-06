@@ -389,14 +389,17 @@ select:focus,
 
 /* ══ RESULTS PANEL ══ */
 .results-panel{background:var(--card)}
-.total-blk{padding:18px 16px 16px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden;border-radius:0;
+.total-blk{padding:20px 12px 18px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden;border-radius:0;
   display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
 .total-blk::before{content:'';position:absolute;top:0;right:0;width:48px;height:48px;background:var(--ms-lime);clip-path:polygon(100% 0,0 0,100% 100%)}
-.total-col{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 8px}
-.total-col:not(:first-child){border-left:1px solid rgba(255,255,255,.18)}
-.total-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#fff;font-weight:600;margin-bottom:6px}
-.total-num{font-family:'Google Sans Flex',sans-serif;font-size:clamp(30px,4.5vw,42px);font-weight:700;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:#fff}
-.total-unit{font-family:'Google Sans Flex',sans-serif;font-size:12px;color:#fff;font-weight:500;margin-top:5px}
+.total-col{display:flex;flex-direction:column;align-items:center;text-align:center;padding:2px 10px;position:relative}
+.total-col:not(:first-child)::before{content:'';position:absolute;left:0;top:12%;height:76%;width:1px;background:rgba(255,255,255,.16)}
+.total-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:9px}
+.total-ic svg{width:18px;height:18px;display:block}
+.total-code{font-size:12px;font-weight:700;letter-spacing:.03em;margin-bottom:3px}
+.total-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.72);font-weight:600;margin-bottom:11px;line-height:1.25;min-height:22px;display:flex;align-items:center}
+.total-num{font-family:'Google Sans Flex',sans-serif;font-size:clamp(26px,3.6vw,36px);font-weight:700;line-height:1;letter-spacing:-.015em;font-variant-numeric:tabular-nums;color:#fff}
+.total-unit{font-family:'Google Sans Flex',sans-serif;font-size:10.5px;color:rgba(255,255,255,.62);font-weight:500;margin-top:6px;letter-spacing:.02em}
 .chart-sec{padding:12px 16px 8px}
 .mod-bar-strip{display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--line-soft);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'Google Sans Flex','IBM Plex Sans',sans-serif}
 .mod-bar-strip .mbs-title{flex:1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-navy);white-space:nowrap}
@@ -694,17 +697,29 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
         <div class="results-fixed">
           <div class="total-blk">
             <div class="total-col">
-              <div class="total-lbl">A1–A3 · Cradle-to-gate</div>
+              <div class="total-ic" style="background:rgba(111,168,199,.22)">
+                <svg viewBox="0 0 24 24" fill="#8FC0DD"><path d="M3 21V9.2l5 3.1V9.2l5 3.1V9.2l6 3.6V21H3zm2-2h3v-3H5v3zm5 0h3v-3h-3v3zm5 0h2v-3h-2v3z"/></svg>
+              </div>
+              <div class="total-code" style="color:#8FC0DD">A1–A3</div>
+              <div class="total-lbl">Cradle-to-gate</div>
               <div class="total-num" id="r-total">—</div>
               <div class="total-unit">kgCO₂e / m³</div>
             </div>
             <div class="total-col">
-              <div class="total-lbl">A4 · Site transport</div>
+              <div class="total-ic" style="background:rgba(157,190,95,.22)">
+                <svg viewBox="0 0 24 24" fill="#AEC968"><path d="M3 5h11v8H3V5zm12 3h3.2l2.8 3v2h-6V8zM7 19.4a1.9 1.9 0 100-3.8 1.9 1.9 0 000 3.8zm10.5 0a1.9 1.9 0 100-3.8 1.9 1.9 0 000 3.8z"/></svg>
+              </div>
+              <div class="total-code" style="color:#AEC968">A4</div>
+              <div class="total-lbl">Site transport</div>
               <div class="total-num" id="r-a4">—</div>
               <div class="total-unit">kgCO₂e / m³</div>
             </div>
             <div class="total-col">
-              <div class="total-lbl">A5 · Installation</div>
+              <div class="total-ic" style="background:rgba(201,219,77,.22)">
+                <svg viewBox="0 0 24 24" fill="#CEDE54"><path d="M13.8 2.3l2.4 2.4-2.1 2.1 2.1 2.1 2.1-2.1 2.4 2.4a5 5 0 01-6.5 6.2l-6.1 6.1-3-3 6.1-6.1a5 5 0 016.2-6.5l-2.1 2.1z"/></svg>
+              </div>
+              <div class="total-code" style="color:#CEDE54">A5</div>
+              <div class="total-lbl">Installation</div>
               <div class="total-num" id="r-a5">—</div>
               <div class="total-unit">kgCO₂e / m³</div>
             </div>
@@ -1125,9 +1140,9 @@ function render() {
   if(!state || !baseline) return;
   const r = calculate(state);
 
-  $('r-total').textContent = fmt(r.a1a3, 1);
-  $('r-a4').textContent    = fmt(r.a4, r.a4<5?2:1);
-  $('r-a5').textContent    = fmt(r.a5, r.a5<5?2:1);
+  $('r-total').textContent = fmt(r.a1a3, 2);
+  $('r-a4').textContent    = fmt(r.a4, 2);
+  $('r-a5').textContent    = fmt(r.a5, 2);
 
   const mods = [
     {tag:'A1', name:'Raw materials',   val:r.a1, color:'var(--a1)', inCtg:true},
