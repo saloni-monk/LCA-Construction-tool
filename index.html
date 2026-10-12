@@ -214,6 +214,11 @@ input[type="range"]::-moz-range-thumb{
 }
 .range-hint{display:flex;justify-content:space-between;font-family:'Google Sans Flex',sans-serif;font-size:11.5px;font-weight:600;color:var(--ms-blue);margin-top:4px}
 .slider-help{font-size:11px;color:var(--ms-blue);margin-top:3px;font-style:italic}
+.slider-line{display:flex;align-items:center;gap:9px;margin-top:4px}
+.slider-line input[type=range]{flex:1;min-width:0;margin:0}
+.slider-end{font-family:'Google Sans Flex',sans-serif;font-size:10.5px;font-weight:600;color:var(--ms-blue);white-space:nowrap;flex-shrink:0}
+.in2{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;align-items:start}
+@media(max-width:640px){.in2{grid-template-columns:1fr}}
 
 /* ══ A2 TRANSPORT ROWS ══ */
 .tp-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
@@ -537,8 +542,7 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
               <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic ">i<span class="info-tip">Mass per cubic metre of the finished product.</span></span></span>
               <span class="ctrl-badge" id="d-mass">0 kg/m³</span>
             </div>
-            <input type="range" id="s-mass" min="0" max="250" step="5" value="0"/>
-            <div class="range-hint"><span>0 — lightweight</span><span>250 — dense block</span></div>
+            <div class="slider-line"><span class="slider-end">0 · light</span><input type="range" id="s-mass" min="0" max="250" step="5" value="0"/><span class="slider-end">250 · dense</span></div>
           </div>
         </div>
 
@@ -588,26 +592,26 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
               <span class="elec-title">Electricity &amp; Grid</span>
             </div>
 
-            <div style="font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px">Electricity Consumption (kWh/kg)</div>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
-              <span style="font-family:'Google Sans Flex',sans-serif;font-size:11.5px;font-weight:600;color:var(--ms-blue)">0</span>
-              <input type="range" id="s-elec-kg" min="0" max="2" step="0.01" value="0" style="flex:1"/>
-              <span style="font-family:'Google Sans Flex',sans-serif;font-size:11.5px;font-weight:600;color:var(--ms-blue)">2.00</span>
-              <span class="elec-pill" id="elec-pill">0.00 kWh/kg</span>
-            </div>
-
-
-            <div style="display:flex;align-items:center;gap:12px;margin:14px 0 0">
-              <div class="grid-lbl" style="margin:0;flex-shrink:0;width:150px">Grid Region</div>
-              <select id="s-grid" style="flex:1;min-width:0;margin-top:0">
-                <option value="" selected disabled>Select grid region…</option>
-                <option value="1.365165">All India (Unified Grid)</option>
-                <option value="1.365165">Western Grid</option>
-                <option value="1.335598">Northern Grid</option>
-                <option value="1.531653">Eastern Grid</option>
-                <option value="0.945850">North-Eastern Grid</option>
-                <option value="1.172575">Southern Grid</option>
-              </select>
+            <div class="in2">
+              <div class="ctrl">
+                <div class="ctrl-row">
+                  <span class="ctrl-lbl">Electricity (kWh/kg)</span>
+                  <span class="elec-pill" id="elec-pill">0.00 kWh/kg</span>
+                </div>
+                <div class="slider-line"><span class="slider-end">0</span><input type="range" id="s-elec-kg" min="0" max="2" step="0.01" value="0"/><span class="slider-end">2.0</span></div>
+              </div>
+              <div>
+                <div class="grid-lbl" style="margin:0 0 5px">Grid Region</div>
+                <select id="s-grid" style="width:100%;margin-top:0">
+                  <option value="" selected disabled>Select grid region…</option>
+                  <option value="1.365165">All India (Unified Grid)</option>
+                  <option value="1.365165">Western Grid</option>
+                  <option value="1.335598">Northern Grid</option>
+                  <option value="1.531653">Eastern Grid</option>
+                  <option value="0.945850">North-Eastern Grid</option>
+                  <option value="1.172575">Southern Grid</option>
+                </select>
+              </div>
             </div>
 
             <!-- Rooftop Solar -->
@@ -651,43 +655,42 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
                 <span class="ctrl-lbl">Raw material wastage rate</span>
                 <span class="ctrl-badge" id="d-yield">0%</span>
               </div>
-              <input type="range" id="s-yield" min="0" max="30" step="1" value="0"/>
-              <div class="range-hint"><span>0% — no waste</span><span>30% — high waste</span></div>
+              <div class="slider-line"><span class="slider-end">0% · none</span><input type="range" id="s-yield" min="0" max="30" step="1" value="0"/><span class="slider-end">30% · high</span></div>
             </div>
           </div>
         </div>
 
-        <!-- LOGISTICS -->
-        <div class="param-block" data-module="a4">
-          <div class="sec-strip mod-a4">
-            <span class="sec-strip-label">Product Transport</span>
-            <span class="sec-strip-line"></span>
-            <span class="info-ic">i<span class="info-tip">Distance from factory to construction site.</span></span>
-          </div>
-          <div class="ctrl">
-            <div class="ctrl-row">
-              <span class="ctrl-lbl">Site transport distance</span>
-              <span class="ctrl-badge" id="d-out">0 km</span>
+        <!-- A4 + A5 side by side -->
+        <div class="in2">
+          <!-- LOGISTICS (A4) -->
+          <div class="param-block" data-module="a4" style="margin:0">
+            <div class="sec-strip mod-a4">
+              <span class="sec-strip-label">Product Transport</span>
+              <span class="sec-strip-line"></span>
+              <span class="info-ic">i<span class="info-tip">Distance from factory to construction site.</span></span>
             </div>
-            <input type="range" id="s-outbound" min="0" max="500" step="10" value="0"/>
-            <div class="range-hint"><span>0 km</span><span>500 km</span></div>
+            <div class="ctrl">
+              <div class="ctrl-row">
+                <span class="ctrl-lbl">Site transport distance</span>
+                <span class="ctrl-badge" id="d-out">0 km</span>
+              </div>
+              <div class="slider-line"><span class="slider-end">0</span><input type="range" id="s-outbound" min="0" max="500" step="10" value="0"/><span class="slider-end">500 km</span></div>
+            </div>
           </div>
-        </div>
 
-        <!-- INSTALLATION (A5) -->
-        <div class="param-block" data-module="a5">
-          <div class="sec-strip">
-            <span class="sec-strip-label">Installation</span>
-            <span class="sec-strip-line"></span>
-            <span class="info-ic">i<span class="info-tip">Electricity used during on-site installation.</span></span>
-          </div>
-          <div class="ctrl">
-            <div style="font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px">Installation electricity (kWh/kg)</div>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
-              <span style="font-family:'Google Sans Flex',sans-serif;font-size:11.5px;font-weight:600;color:var(--ms-blue)">0</span>
-              <input type="range" id="s-a5elec" min="0" max="2" step="0.01" value="0" style="flex:1"/>
-              <span style="font-family:'Google Sans Flex',sans-serif;font-size:11.5px;font-weight:600;color:var(--ms-blue)">2.00</span>
-              <span class="elec-pill" id="a5-pill">0.00 kWh/kg</span>
+          <!-- INSTALLATION (A5) -->
+          <div class="param-block" data-module="a5" style="margin:0">
+            <div class="sec-strip">
+              <span class="sec-strip-label">Installation</span>
+              <span class="sec-strip-line"></span>
+              <span class="info-ic">i<span class="info-tip">Electricity used during on-site installation.</span></span>
+            </div>
+            <div class="ctrl">
+              <div class="ctrl-row">
+                <span class="ctrl-lbl">Installation (kWh/kg)</span>
+                <span class="elec-pill" id="a5-pill">0.00 kWh/kg</span>
+              </div>
+              <div class="slider-line"><span class="slider-end">0</span><input type="range" id="s-a5elec" min="0" max="2" step="0.01" value="0"/><span class="slider-end">2.0</span></div>
             </div>
           </div>
         </div>
@@ -949,8 +952,7 @@ function renderRmSliders() {
         <span style="font-size:13px;font-weight:600;color:var(--ms-navy)">Content share</span>
         <span class="ctrl-badge rm-pct-badge" id="rm-pct-badge-${i}">${rm.pct}%</span>
       </div>
-      <input type="range" class="rm-pct-slider" data-idx="${i}" min="0" max="100" step="1" value="${rm.pct}"/>
-      <div class="range-hint"><span>0%</span><span>100%</span></div>
+      <div class="slider-line"><span class="slider-end">0%</span><input type="range" class="rm-pct-slider" data-idx="${i}" min="0" max="100" step="1" value="${rm.pct}"/><span class="slider-end">100%</span></div>
     `;
     container.appendChild(div);
   });
