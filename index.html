@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Product Carbon Estimator for Construction Products</title>
+<title>Carbon Estimator for Construction Products</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Google+Sans+Flex:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Playfair+Display:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -77,7 +77,7 @@ body.tool-mode .container{max-width:100%;padding:0}
   text-transform:uppercase;letter-spacing:.08em;
   flex-shrink:0;
 }
-.param-block[data-module="a1"] .sec-strip-label::before{content:'A1'}
+.param-block[data-module="a1"] .sec-strip-label::before{content:none}
 .param-block[data-module="a2"] .sec-strip-label::before{content:'A2'}
 .param-block[data-module="a3"] .sec-strip-label::before{content:'A3'}
 .param-block[data-module="a4"] .sec-strip-label::before{content:'A4'}
@@ -94,7 +94,7 @@ body.tool-mode .container{max-width:100%;padding:0}
 /* ══ TOOL VIEW ══ */
 .tool-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:2fr 1fr;
   gap:12px;align-items:start;
   padding:14px;
 }
@@ -470,7 +470,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
       <span class="mh-logo">
         <img src="monk-logo.png" alt="Monk Spaces"/>
       </span>
-      <span class="mh-title" style="display:flex;flex-direction:column;line-height:1.2">Product Carbon Estimator<span style="font-size:0.5em;font-weight:500;letter-spacing:.02em;margin-top:1px">for construction products</span><span style="font-size:0.38em;font-weight:400;color:#e02424;letter-spacing:.01em;margin-top:2px;font-family:'Google Sans Flex',sans-serif;font-weight:600">This is a representational mockup only — data shown is not verified and must not be used for reporting.</span></span>
+      <span class="mh-title" style="display:flex;flex-direction:column;line-height:1.2"><span style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">Carbon Estimator<span style="font-size:0.5em;font-weight:500;letter-spacing:.02em">for Construction Products</span></span><span style="font-size:0.46em;font-weight:600;color:#e02424;letter-spacing:.01em;margin-top:3px;font-family:'Google Sans Flex',sans-serif">This is a representational mockup only — data shown is not verified and must not be used for reporting.</span></span>
     </div>
     <div class="mh-actions">
       <div class="mh-rail" aria-label="Life-cycle stages A1 to A5">
@@ -597,16 +597,18 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
             </div>
 
 
-            <div class="grid-lbl">Grid Region</div>
-            <select id="s-grid">
-              <option value="" selected disabled>Select grid region…</option>
-              <option value="1.365165">All India (Unified Grid)</option>
-              <option value="1.365165">Western Grid</option>
-              <option value="1.335598">Northern Grid</option>
-              <option value="1.531653">Eastern Grid</option>
-              <option value="0.945850">North-Eastern Grid</option>
-              <option value="1.172575">Southern Grid</option>
-            </select>
+            <div style="display:flex;align-items:center;gap:12px;margin:14px 0 0">
+              <div class="grid-lbl" style="margin:0;flex-shrink:0">Grid Region</div>
+              <select id="s-grid" style="flex:1;min-width:0;margin-top:0">
+                <option value="" selected disabled>Select grid region…</option>
+                <option value="1.365165">All India (Unified Grid)</option>
+                <option value="1.365165">Western Grid</option>
+                <option value="1.335598">Northern Grid</option>
+                <option value="1.531653">Eastern Grid</option>
+                <option value="0.945850">North-Eastern Grid</option>
+                <option value="1.172575">Southern Grid</option>
+              </select>
+            </div>
 
             <!-- Rooftop Solar -->
             <div class="solar-sep">
@@ -615,8 +617,10 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
               </span>
               <span class="solar-sep-title">Rooftop Solar</span>
             </div>
-            <div class="solar-kw-lbl">Solar Capacity (kWp)</div>
-            <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Enter solar capacity (kWp)"/>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="solar-kw-lbl" style="margin:0;flex-shrink:0">Solar Capacity (kWp)</div>
+              <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Enter capacity" style="flex:1;width:auto;min-width:0"/>
+            </div>
             <div class="solar-assume">Assumption: 1 kWp = 1,500 kWh/yr</div>
 
             <div class="solar-contrib" id="solarContrib">
@@ -923,17 +927,23 @@ function renderRmSliders() {
     div.className = 'ctrl';
     div.style.cssText = 'border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:#FAFBF9';
     div.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ms-blue);flex-shrink:0">Raw Material ${i+1}</span>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-blue);flex-shrink:0">RM ${i+1}</span>
         <input type="text" class="rm-name-inp" data-idx="${i}"
           value="${escH(rm.name)}"
-          placeholder="Enter raw material name here"
-          style="flex:1;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
+          placeholder="Material name"
+          style="flex:1 1 110px;min-width:90px;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
         <select class="rm-ef-sel" data-idx="${i}" title="Material category — sets the emission factor"
-          style="width:auto;font-size:11px;padding:4px 28px 4px 8px;color:var(--ink-soft);border:1.5px solid var(--ms-lime);border-radius:4px">
+          style="flex-shrink:0;width:auto;font-size:11px;padding:4px 26px 4px 8px;margin-top:0;color:var(--ink-soft);border:1.5px solid var(--ms-lime);border-radius:4px">
           ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
         </select>
-        ${infoIcon('Select the closest material category.')}
+        <span style="display:flex;align-items:center;gap:5px;flex-shrink:0;padding-left:8px;border-left:1px dashed var(--line)">
+          <span style="font-size:10px;font-weight:600;color:var(--ink-soft);white-space:nowrap">Transport</span>
+          ${infoIcon('One-way distance from the supplier to your factory gate.')}
+          <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="0"
+            style="width:56px;font-family:'Google Sans Flex',sans-serif;font-size:12px;font-weight:600;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px;text-align:right"/>
+          <span style="font-size:10px;font-weight:600;color:var(--ink-soft)">km</span>
+        </span>
         <button class="rm-del-btn" data-idx="${i}"
           style="flex-shrink:0;width:24px;height:24px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink-faint);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;${state.rawMaterials.length<=1?'opacity:.25;pointer-events:none':''}"
         >×</button>
@@ -944,13 +954,6 @@ function renderRmSliders() {
       </div>
       <input type="range" class="rm-pct-slider" data-idx="${i}" min="0" max="100" step="1" value="${rm.pct}"/>
       <div class="range-hint"><span>0%</span><span>100%</span></div>
-      <div style="display:flex;align-items:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);justify-content:flex-end">
-        <span style="font-size:10px;font-weight:500;color:var(--ink-soft);white-space:nowrap">Transport distance</span>
-        ${infoIcon('One-way distance from the supplier to your factory gate.')}
-        <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Enter distance"
-          style="width:120px;font-family:'Google Sans Flex',sans-serif;font-size:12px;font-weight:500;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px;text-align:right"/>
-        <span style="font-size:10px;font-weight:600;color:var(--ink-soft)">km</span>
-      </div>
     `;
     container.appendChild(div);
   });
