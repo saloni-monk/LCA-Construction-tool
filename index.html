@@ -1146,10 +1146,11 @@ function render() {
     {tag:'A5', name:'Installation',       val:r.a5, color:'var(--a5)',   inCtg:false}
   ];
   const maxMod = Math.max(0.0001, ...mods.map(m=>m.val));
+  const totalA1A5 = r.a1a3 + r.a4 + r.a5;
   const mbox = $('module-bars'); mbox.innerHTML='';
   mods.forEach(m => {
     const w = (m.val/maxMod)*100;
-    const pct = (m.inCtg && r.a1a3>0) ? (m.val/r.a1a3*100) : null;
+    const pct = totalA1A5>0 ? (m.val/totalA1A5*100) : null;
     const row = document.createElement('div'); row.className='mod-bar-row';
     row.style.setProperty('--accent', m.color);
     row.innerHTML = `
@@ -1172,7 +1173,7 @@ function render() {
       });
       r.rmContribs.forEach(rm=>{
         const bw = (rm.a1/maxMod)*100;
-        const share = r.a1>0 ? (rm.a1/r.a1*100) : 0;
+        const share = totalA1A5>0 ? (rm.a1/totalA1A5*100) : 0;
         const line = document.createElement('div'); line.className='a1-sub-row';
         line.innerHTML = `
           <span class="a1-sub-name" title="${escH(rm.name)}">${escH(rm.name||'—')}</span>
