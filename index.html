@@ -30,7 +30,7 @@ body{min-height:100vh;padding-bottom:60px}
   border-bottom:3px solid var(--ms-lime);
   margin-bottom:0;overflow:hidden;
   display:flex;align-items:center;justify-content:space-between;gap:20px;
-  padding:0 28px;height:64px;
+  padding:0 28px;height:76px;
   box-shadow:0 1px 4px rgba(0,0,0,.04);
 }
 .mh-brand{display:flex;align-items:center;gap:14px;min-width:0}
@@ -38,7 +38,7 @@ body{min-height:100vh;padding-bottom:60px}
 .mh-logo img{height:36px;width:auto;display:block}
 .mh-title{
   font-family:'Sora',sans-serif;
-  font-size:22px;font-weight:700;letter-spacing:.01em;
+  font-size:26px;font-weight:700;letter-spacing:.01em;
   color:var(--ms-navy);white-space:nowrap;line-height:1.1;
 }
 .reset-btn{
@@ -333,7 +333,7 @@ select:focus,
 
 /* ══ ELECTRICITY SECTION ══ */
 .elec-box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
-.elec-top{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.elec-top{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1.5px solid var(--line)}
 .elec-icon{color:var(--ms-lime);flex-shrink:0}
 .elec-title{font-size:15px;font-weight:700;color:var(--ms-navy)}
 
@@ -352,11 +352,11 @@ select:focus,
 .grid-lbl{font-size:14px;font-weight:600;color:var(--ms-navy);margin:14px 0 5px}
 
 /* solar */
-.solar-sep{display:flex;align-items:center;gap:10px;margin:16px 0 12px}
+.solar-sep{display:flex;align-items:center;gap:10px;margin:18px 0 12px;padding-bottom:8px;border-bottom:1.5px solid var(--line)}
 .solar-sep-icon{color:#E6A817;flex-shrink:0}
 .solar-sep-title{font-size:15px;font-weight:700;color:var(--ms-navy)}
 .solar-sep-tag{font-size:12px;color:var(--ink-faint)}
-.wastage-sep{display:flex;align-items:center;gap:10px;margin:18px 0 4px;padding-top:14px;border-top:1px solid var(--line)}
+.wastage-sep{display:flex;align-items:center;gap:10px;margin:18px 0 12px;padding-bottom:8px;border-bottom:1.5px solid var(--line)}
 .wastage-sep .solar-sep-icon{color:var(--a3)}
 .solar-kw-lbl{font-size:14px;font-weight:600;color:var(--ms-navy);margin-bottom:6px}
 .solar-kw-input{
@@ -470,7 +470,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
       <span class="mh-logo">
         <img src="monk-logo.png" alt="Monk Spaces"/>
       </span>
-      <span class="mh-title" style="display:flex;flex-direction:column;line-height:1.2"><span style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">Carbon Estimator<span style="font-size:0.5em;font-weight:500;letter-spacing:.02em">for Construction Products</span></span><span style="font-size:0.46em;font-weight:600;color:#e02424;letter-spacing:.01em;margin-top:3px;font-family:'Google Sans Flex',sans-serif">This is a representational mockup only — data shown is not verified and must not be used for reporting.</span></span>
+      <span class="mh-title" style="display:flex;flex-direction:column;line-height:1.15"><span>Carbon Estimator for Construction Products</span><span style="font-size:12px;font-weight:600;color:#e02424;letter-spacing:.01em;margin-top:4px;font-family:'Google Sans Flex',sans-serif">This is a representational mockup only — data shown is not verified and must not be used for reporting.</span></span>
     </div>
     <div class="mh-actions">
       <div class="mh-rail" aria-label="Life-cycle stages A1 to A5">
@@ -598,7 +598,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
 
 
             <div style="display:flex;align-items:center;gap:12px;margin:14px 0 0">
-              <div class="grid-lbl" style="margin:0;flex-shrink:0">Grid Region</div>
+              <div class="grid-lbl" style="margin:0;flex-shrink:0;width:150px">Grid Region</div>
               <select id="s-grid" style="flex:1;min-width:0;margin-top:0">
                 <option value="" selected disabled>Select grid region…</option>
                 <option value="1.365165">All India (Unified Grid)</option>
@@ -618,7 +618,7 @@ footer em{font-family:'Instrument Serif',serif;font-style:italic}
               <span class="solar-sep-title">Rooftop Solar</span>
             </div>
             <div style="display:flex;align-items:center;gap:12px">
-              <div class="solar-kw-lbl" style="margin:0;flex-shrink:0">Solar Capacity (kWp)</div>
+              <div class="solar-kw-lbl" style="margin:0;flex-shrink:0;width:150px">Solar Capacity (kWp)</div>
               <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Enter capacity" style="flex:1;width:auto;min-width:0"/>
             </div>
             <div class="solar-assume">Assumption: 1 kWp = 1,500 kWh/yr</div>
@@ -927,26 +927,23 @@ function renderRmSliders() {
     div.className = 'ctrl';
     div.style.cssText = 'border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:#FAFBF9';
     div.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-blue);flex-shrink:0">RM ${i+1}</span>
-        <input type="text" class="rm-name-inp" data-idx="${i}"
-          value="${escH(rm.name)}"
-          placeholder="Material name"
-          style="flex:1 1 110px;min-width:90px;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px"/>
-        <select class="rm-ef-sel" data-idx="${i}" title="Material category — sets the emission factor"
-          style="flex-shrink:0;width:auto;font-size:11px;padding:4px 26px 4px 8px;margin-top:0;color:var(--ink-soft);border:1.5px solid var(--ms-lime);border-radius:4px">
-          ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
-        </select>
-        <span style="display:flex;align-items:center;gap:5px;flex-shrink:0;padding-left:8px;border-left:1px dashed var(--line)">
-          <span style="font-size:10px;font-weight:600;color:var(--ink-soft);white-space:nowrap">Transport</span>
-          ${infoIcon('One-way distance from the supplier to your factory gate.')}
-          <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="0"
-            style="width:56px;font-family:'Google Sans Flex',sans-serif;font-size:12px;font-weight:600;color:var(--ms-navy);background:transparent;border:none;border-bottom:1.5px dashed var(--line);outline:none;padding:2px 4px;text-align:right"/>
-          <span style="font-size:10px;font-weight:600;color:var(--ink-soft)">km</span>
-        </span>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
+        <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-blue)">Raw Material ${i+1}</span>
         <button class="rm-del-btn" data-idx="${i}"
           style="flex-shrink:0;width:24px;height:24px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink-faint);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;${state.rawMaterials.length<=1?'opacity:.25;pointer-events:none':''}"
         >×</button>
+      </div>
+      <div style="display:flex;align-items:stretch;gap:8px;margin-bottom:13px">
+        <input type="text" class="rm-name-inp" data-idx="${i}"
+          value="${escH(rm.name)}"
+          placeholder="Insert raw material name here"
+          style="flex:1 1 0;min-width:0;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:12px;font-weight:500;color:var(--ms-navy);background:var(--card);border:1.5px solid var(--ms-lime);border-radius:5px;outline:none;padding:8px 10px"/>
+        <select class="rm-ef-sel" data-idx="${i}" title="Material category — sets the emission factor"
+          style="flex:1 1 0;min-width:0;width:auto;margin-top:0;font-size:12px;padding:8px 28px 8px 10px;color:var(--ink);border:1.5px solid var(--ms-lime);border-radius:5px">
+          ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
+        </select>
+        <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Transport distance (km)"
+          style="flex:1 1 0;min-width:0;font-family:'Google Sans Flex','IBM Plex Sans',sans-serif;font-size:12px;font-weight:500;color:var(--ms-navy);background:var(--card);border:1.5px solid var(--ms-lime);border-radius:5px;outline:none;padding:8px 10px"/>
       </div>
       <div class="ctrl-row">
         <span style="font-size:13px;font-weight:600;color:var(--ms-navy)">Content share</span>
