@@ -219,6 +219,7 @@ input[type="range"]::-moz-range-thumb{
 .slider-end{font-family:'Google Sans Flex',sans-serif;font-size:10.5px;font-weight:600;color:var(--ms-blue);white-space:nowrap;flex-shrink:0}
 .in2{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;align-items:start}
 @media(max-width:640px){.in2{grid-template-columns:1fr}}
+.rm-field-lbl{flex:1 1 0;min-width:0;font-family:'Google Sans Flex',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft)}
 
 /* ══ A2 TRANSPORT ROWS ══ */
 .tp-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
@@ -241,8 +242,8 @@ input[type="range"]::-moz-range-thumb{
   display:inline-flex;align-items:center;justify-content:center;
   width:15px;height:15px;border-radius:50%;
   border:1.4px solid var(--ms-blue);color:var(--ms-blue);
-  font-size:10px;font-weight:700;font-style:italic;font-family:'Google Sans Flex',sans-serif;
-  cursor:default;position:relative;flex-shrink:0;line-height:1;
+  font-size:10px;font-weight:700;font-style:normal;font-family:'Google Sans Flex',sans-serif;
+  cursor:default;position:relative;flex-shrink:0;line-height:1;text-align:center;
   vertical-align:middle;pointer-events:auto;
 }
 .info-ic:hover{background:var(--ms-blue);color:#fff;outline:none}
@@ -539,7 +540,7 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
           </div>
           <div class="ctrl">
             <div class="ctrl-row">
-              <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic ">i<span class="info-tip">Mass per cubic metre of the finished product.</span></span></span>
+              <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic">i<span class="info-tip">Mass per cubic metre of the finished product. Drag the slider to set it — from lightweight to a dense block.</span></span></span>
               <span class="ctrl-badge" id="d-mass">0 kg/m³</span>
             </div>
             <div class="slider-line"><span class="slider-end">0 · light</span><input type="range" id="s-mass" min="0" max="250" step="5" value="0"/><span class="slider-end">250 · dense</span></div>
@@ -667,11 +668,11 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
             <div class="sec-strip mod-a4">
               <span class="sec-strip-label">Product Transport</span>
               <span class="sec-strip-line"></span>
-              <span class="info-ic">i<span class="info-tip">Distance from factory to construction site.</span></span>
+              <span class="info-ic">i<span class="info-tip">One-way distance the finished product travels from your factory to the construction site.</span></span>
             </div>
             <div class="ctrl">
               <div class="ctrl-row">
-                <span class="ctrl-lbl">Site transport distance</span>
+                <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Product transport distance<span class="info-ic">i<span class="info-tip">Distance from your factory to the construction site where the product is used.</span></span></span>
                 <span class="ctrl-badge" id="d-out">0 km</span>
               </div>
               <div class="slider-line"><span class="slider-end">0</span><input type="range" id="s-outbound" min="0" max="500" step="10" value="0"/><span class="slider-end">500 km</span></div>
@@ -936,20 +937,25 @@ function renderRmSliders() {
           style="flex-shrink:0;width:24px;height:24px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink-faint);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;${state.rawMaterials.length<=1?'opacity:.25;pointer-events:none':''}"
         >×</button>
       </div>
+      <div style="display:flex;gap:8px;margin-bottom:4px">
+        <span class="rm-field-lbl">Raw material name</span>
+        <span class="rm-field-lbl">Raw material category</span>
+        <span class="rm-field-lbl">Transport distance (km)</span>
+      </div>
       <div style="display:flex;align-items:stretch;gap:8px;margin-bottom:13px">
         <input type="text" class="rm-name-inp" data-idx="${i}"
           value="${escH(rm.name)}"
           placeholder="Insert raw material name here"
           style="flex:1 1 0;min-width:0;font-family:'Google Sans Flex',sans-serif;font-size:12px;font-weight:500;color:var(--ms-navy);background:var(--card);border:1.5px solid var(--ms-lime);border-radius:5px;outline:none;padding:8px 10px"/>
-        <select class="rm-ef-sel" data-idx="${i}" title="Material category — sets the emission factor"
+        <select class="rm-ef-sel" data-idx="${i}" title="Select the raw material category — this sets the emission factor"
           style="flex:1 1 0;min-width:0;width:auto;margin-top:0;font-size:12px;padding:8px 28px 8px 10px;color:var(--ink);border:1.5px solid var(--ms-lime);border-radius:5px">
           ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
         </select>
-        <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Transport distance (km)"
+        <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Insert transport distance in km"
           style="flex:1 1 0;min-width:0;font-family:'Google Sans Flex',sans-serif;font-size:12px;font-weight:500;color:var(--ms-navy);background:var(--card);border:1.5px solid var(--ms-lime);border-radius:5px;outline:none;padding:8px 10px"/>
       </div>
       <div class="ctrl-row">
-        <span style="font-size:13px;font-weight:600;color:var(--ms-navy)">Content share</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ms-navy)">Content share${infoIcon('Share of this material in the product mix. Drag the slider to set it — all materials should add up to 100%.')}</span>
         <span class="ctrl-badge rm-pct-badge" id="rm-pct-badge-${i}">${rm.pct}%</span>
       </div>
       <div class="slider-line"><span class="slider-end">0%</span><input type="range" class="rm-pct-slider" data-idx="${i}" min="0" max="100" step="1" value="${rm.pct}"/><span class="slider-end">100%</span></div>
