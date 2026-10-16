@@ -221,7 +221,7 @@ input[type="range"]::-moz-range-thumb{
 @media(max-width:640px){.in2{grid-template-columns:1fr}}
 .elec-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:4px}
 .eg-left{padding-right:18px;border-right:1.5px solid var(--line)}
-.eg-right{padding-left:18px;display:flex;flex-direction:column;gap:11px}
+.eg-right{padding-left:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
 @media(max-width:640px){.elec-grid2{grid-template-columns:1fr}.eg-left{border-right:none;border-bottom:1.5px solid var(--line);padding-right:0;padding-bottom:12px}.eg-right{padding-left:0;padding-top:12px}}
 
 /* ══ A2 TRANSPORT ROWS ══ */
@@ -398,7 +398,7 @@ select:focus,
 
 /* ══ RESULTS PANEL ══ */
 .results-panel{background:var(--card)}
-.total-blk{padding:20px 12px 18px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden;border-radius:0;
+.total-blk{padding:16px 12px 14px;background:var(--ms-navy);color:#fff;position:relative;overflow:hidden;border-radius:0;
   display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
 .total-blk::before{content:'';position:absolute;top:0;right:0;width:48px;height:48px;background:var(--ms-lime);clip-path:polygon(100% 0,0 0,100% 100%)}
 .total-col{display:flex;flex-direction:column;align-items:center;text-align:center;padding:2px 10px;position:relative}
@@ -409,7 +409,7 @@ select:focus,
 .total-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#fff;font-weight:600;margin-bottom:11px;line-height:1.25;min-height:26px;display:flex;align-items:center}
 .total-num{font-family:'Google Sans Flex',sans-serif;font-size:clamp(26px,3.6vw,36px);font-weight:700;line-height:1;letter-spacing:-.015em;font-variant-numeric:tabular-nums;color:#fff}
 .total-unit{font-family:'Google Sans Flex',sans-serif;font-size:12.5px;color:#fff;font-weight:500;margin-top:7px;letter-spacing:.02em}
-.chart-sec{padding:12px 16px 14px}
+.chart-sec{padding:10px 16px 12px}
 .mod-bar-strip{display:flex;align-items:center;gap:10px;padding:9px 29px;background:var(--line-soft);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'Google Sans Flex',sans-serif}
 .mod-bar-strip .mbs-title{flex:1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-navy);white-space:nowrap}
 .mod-bar-strip .mbs-col{text-align:center;white-space:nowrap;font-size:12px;font-weight:700;color:var(--ms-blue)}
@@ -417,7 +417,7 @@ select:focus,
 .mod-bar-strip .mbs-col-pct{width:50px;border-left:1px solid var(--line);padding:0 4px;box-sizing:content-box}
 .stage-bar{display:flex;height:24px;border:1px solid var(--ms-navy);overflow:hidden;margin-bottom:4px}
 
-.mod-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;padding:9px 12px;background:var(--card);border:1px solid var(--line);border-radius:9px;box-shadow:inset 3px 0 0 var(--accent,var(--ms-blue));transition:box-shadow .16s,transform .16s}
+.mod-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;padding:7px 12px;background:var(--card);border:1px solid var(--line);border-radius:9px;box-shadow:inset 3px 0 0 var(--accent,var(--ms-blue));transition:box-shadow .16s,transform .16s}
 .mod-bar-row:hover{box-shadow:inset 3px 0 0 var(--accent,var(--ms-blue)),0 3px 12px rgba(33,58,87,.1);transform:translateY(-1px)}
 .mod-bar-head{flex-shrink:0;width:172px;display:flex;align-items:center;gap:7px}
 .mod-bar-tag{flex-shrink:0;width:28px;font-family:'Google Sans Flex',sans-serif;font-size:10px;font-weight:700;color:#fff;text-align:center;padding:3px 0;border-radius:3px}
@@ -517,39 +517,41 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
     <div class="tool-col-inputs">
       <div class="col-header col-header-inputs">Inputs <button class="reset-btn" id="resetBtn">&#8634; Clear All</button></div>
 
-      <!-- PRODUCT TYPE -->
-      <div class="panel" style="margin-bottom:18px">
+      <!-- PRODUCT TYPE + PROPERTIES side by side -->
+      <div class="panel" style="margin-bottom:14px">
         <div class="param-block">
-          <div class="sec-strip">
-            <span class="sec-strip-label">Product Type</span>
-            <span class="sec-strip-line"></span>
+          <div class="in2">
+            <div>
+              <div class="sec-strip">
+                <span class="sec-strip-label">Product Type</span>
+                <span class="sec-strip-line"></span>
+              </div>
+              <span class="select-lbl">Select your product</span>
+              <select id="s-product" style="border:1.5px solid var(--ms-lime);margin-top:0">
+                <option value="solidblock">Solid Concrete Block</option>
+                <option value="hollowblock">Hollow Concrete Block</option>
+                <option value="interlock">Interlocking Paver</option>
+                <option value="flatpaver">Flat Paver / Kerb Stone</option>
+              </select>
+            </div>
+            <div>
+              <div class="sec-strip">
+                <span class="sec-strip-label">Product Properties</span>
+                <span class="sec-strip-line"></span>
+              </div>
+              <div class="ctrl">
+                <div class="ctrl-row">
+                  <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic">i<span class="info-tip">Mass per cubic metre of the finished product. Drag the slider to set it — from lightweight to a dense block.</span></span></span>
+                  <span class="ctrl-badge" id="d-mass">0 kg/m³</span>
+                </div>
+                <div class="slider-line"><span class="slider-end">0 · light</span><input type="range" id="s-mass" min="0" max="250" step="5" value="0"/><span class="slider-end">250 · dense</span></div>
+              </div>
+            </div>
           </div>
-          <span class="select-lbl">Select your product</span>
-          <select id="s-product" style="border:1.5px solid var(--ms-lime)">
-            <option value="solidblock">Solid Concrete Block</option>
-            <option value="hollowblock">Hollow Concrete Block</option>
-            <option value="interlock">Interlocking Paver</option>
-            <option value="flatpaver">Flat Paver / Kerb Stone</option>
-          </select>
         </div>
       </div>
 
       <div class="panel">
-        <!-- PRODUCT PROPERTIES -->
-        <div class="param-block">
-          <div class="sec-strip">
-            <span class="sec-strip-label">Product Properties</span>
-            <span class="sec-strip-line"></span>
-          </div>
-          <div class="ctrl">
-            <div class="ctrl-row">
-              <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic">i<span class="info-tip">Mass per cubic metre of the finished product. Drag the slider to set it — from lightweight to a dense block.</span></span></span>
-              <span class="ctrl-badge" id="d-mass">0 kg/m³</span>
-            </div>
-            <div class="slider-line"><span class="slider-end">0 · light</span><input type="range" id="s-mass" min="0" max="250" step="5" value="0"/><span class="slider-end">250 · dense</span></div>
-          </div>
-        </div>
-
         <!-- RAW MATERIALS -->
         <div class="param-block" data-module="a1">
           <div class="sec-strip mod-a1">
@@ -618,8 +620,9 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
                   </select>
                 </div>
                 <div>
-                  <div class="grid-lbl" style="margin:0 0 5px;display:flex;align-items:center;gap:6px">Solar Capacity (kWp) <span style="font-weight:400;font-size:11px;color:var(--ink-faint)">1 kWp = 1,500 kWh/yr</span></div>
-                  <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Enter capacity" style="width:100%"/>
+                  <div class="grid-lbl" style="margin:0 0 5px">Solar Capacity (kWp)</div>
+                  <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Enter kWp" style="width:100%"/>
+                  <div class="solar-assume" style="margin-top:4px">1 kWp = 1,500 kWh/yr</div>
                 </div>
               </div>
             </div>
