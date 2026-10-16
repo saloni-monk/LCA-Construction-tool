@@ -217,9 +217,12 @@ input[type="range"]::-moz-range-thumb{
 .slider-line{display:flex;align-items:center;gap:9px;margin-top:4px}
 .slider-line input[type=range]{flex:1;min-width:0;margin:0}
 .slider-end{font-family:'Google Sans Flex',sans-serif;font-size:10.5px;font-weight:600;color:var(--ms-blue);white-space:nowrap;flex-shrink:0}
-.in2{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;align-items:start}
+.in2{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;align-items:start}
 @media(max-width:640px){.in2{grid-template-columns:1fr}}
-.rm-field-lbl{flex:1 1 0;min-width:0;font-family:'Google Sans Flex',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft)}
+.elec-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:4px}
+.eg-left{padding-right:18px;border-right:1.5px solid var(--line)}
+.eg-right{padding-left:18px;display:flex;flex-direction:column;gap:11px}
+@media(max-width:640px){.elec-grid2{grid-template-columns:1fr}.eg-left{border-right:none;border-bottom:1.5px solid var(--line);padding-right:0;padding-bottom:12px}.eg-right{padding-left:0;padding-top:12px}}
 
 /* ══ A2 TRANSPORT ROWS ══ */
 .tp-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
@@ -287,8 +290,8 @@ input[type="range"]::-moz-range-thumb{
 .table-sec{padding:6px 22px 16px}
 
 /* ══ COMPACT MODE ══ */
-body.tool-mode .param-block{padding:12px 14px 10px}
-body.tool-mode .sec-strip{margin-bottom:10px}
+body.tool-mode .param-block{padding:9px 14px 8px}
+body.tool-mode .sec-strip{margin-bottom:8px}
 body.tool-mode .ctrl{margin-bottom:10px}
 body.tool-mode .ctrl-row{margin-bottom:3px}
 body.tool-mode .slider-help{display:none}
@@ -476,7 +479,7 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
       <span class="mh-logo">
         <img src="monk-logo.png" alt="Monk Spaces"/>
       </span>
-      <span class="mh-title" style="display:flex;flex-direction:column;line-height:1.15"><span>Carbon Estimator for Construction Products</span><span style="font-size:12px;font-weight:600;color:#e02424;letter-spacing:.01em;margin-top:4px;font-family:'Google Sans Flex',sans-serif">This is a representational mockup only — data shown is not verified and must not be used for reporting.</span></span>
+      <span class="mh-title" style="display:flex;flex-direction:column;line-height:1.15"><span style="color:#3a5777">Carbon Estimator for Construction Products</span><span style="font-size:12px;font-weight:600;color:#e02424;letter-spacing:.01em;margin-top:4px;font-family:'Google Sans Flex',sans-serif">This is a representational mockup only — data shown is not verified and must not be used for reporting.</span></span>
     </div>
     <div class="mh-actions">
       <div class="mh-rail" aria-label="Life-cycle stages A1 to A5">
@@ -593,40 +596,33 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
               <span class="elec-title">Electricity &amp; Grid</span>
             </div>
 
-            <div class="in2">
-              <div class="ctrl">
+            <div class="elec-grid2">
+              <div class="eg-left">
                 <div class="ctrl-row">
                   <span class="ctrl-lbl">Electricity (kWh/kg)</span>
                   <span class="elec-pill" id="elec-pill">0.00 kWh/kg</span>
                 </div>
                 <div class="slider-line"><span class="slider-end">0</span><input type="range" id="s-elec-kg" min="0" max="2" step="0.01" value="0"/><span class="slider-end">2.0</span></div>
               </div>
-              <div>
-                <div class="grid-lbl" style="margin:0 0 5px">Grid Region</div>
-                <select id="s-grid" style="width:100%;margin-top:0">
-                  <option value="" selected disabled>Select grid region…</option>
-                  <option value="1.365165">All India (Unified Grid)</option>
-                  <option value="1.365165">Western Grid</option>
-                  <option value="1.335598">Northern Grid</option>
-                  <option value="1.531653">Eastern Grid</option>
-                  <option value="0.945850">North-Eastern Grid</option>
-                  <option value="1.172575">Southern Grid</option>
-                </select>
+              <div class="eg-right">
+                <div>
+                  <div class="grid-lbl" style="margin:0 0 5px">Grid Region</div>
+                  <select id="s-grid" style="width:100%;margin-top:0">
+                    <option value="" selected disabled>Select grid region…</option>
+                    <option value="1.365165">All India (Unified Grid)</option>
+                    <option value="1.365165">Western Grid</option>
+                    <option value="1.335598">Northern Grid</option>
+                    <option value="1.531653">Eastern Grid</option>
+                    <option value="0.945850">North-Eastern Grid</option>
+                    <option value="1.172575">Southern Grid</option>
+                  </select>
+                </div>
+                <div>
+                  <div class="grid-lbl" style="margin:0 0 5px;display:flex;align-items:center;gap:6px">Solar Capacity (kWp) <span style="font-weight:400;font-size:11px;color:var(--ink-faint)">1 kWp = 1,500 kWh/yr</span></div>
+                  <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Enter capacity" style="width:100%"/>
+                </div>
               </div>
             </div>
-
-            <!-- Rooftop Solar -->
-            <div class="solar-sep">
-              <span class="solar-sep-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.07" y2="4.93"/></svg>
-              </span>
-              <span class="solar-sep-title">Rooftop Solar</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:12px">
-              <div class="solar-kw-lbl" style="margin:0;flex-shrink:0;width:150px">Solar Capacity (kWp)</div>
-              <input class="solar-kw-input" type="number" id="sol-kw" min="0" max="50000" step="1" value="" placeholder="Enter capacity" style="flex:1;width:auto;min-width:0"/>
-            </div>
-            <div class="solar-assume">Assumption: 1 kWp = 1,500 kWh/yr</div>
 
             <div class="solar-contrib" id="solarContrib">
               <div class="sc-top">
@@ -787,8 +783,8 @@ const PRODUCTS = {
     mass: 0, elecKgKg: 0,
     grid: '', processYield: 100, outbound: 0, solarKw: 0, a5ElecKgKg: 0,
     rawMaterials: [
-      {name: '', pct: 0, efKey: 'binder', km: 0},
-      {name: '', pct: 0, efKey: 'aggregate', km: 0}
+      {name: '', pct: 0, efKey: '', km: 0},
+      {name: '', pct: 0, efKey: '', km: 0}
     ]
   },
   hollowblock: {
@@ -796,8 +792,8 @@ const PRODUCTS = {
     mass: 0, elecKgKg: 0,
     grid: '', processYield: 100, outbound: 0, solarKw: 0, a5ElecKgKg: 0,
     rawMaterials: [
-      {name: '', pct: 0, efKey: 'binder', km: 0},
-      {name: '', pct: 0, efKey: 'aggregate', km: 0}
+      {name: '', pct: 0, efKey: '', km: 0},
+      {name: '', pct: 0, efKey: '', km: 0}
     ]
   },
   interlock: {
@@ -805,8 +801,8 @@ const PRODUCTS = {
     mass: 0, elecKgKg: 0,
     grid: '', processYield: 100, outbound: 0, solarKw: 0, a5ElecKgKg: 0,
     rawMaterials: [
-      {name: '', pct: 0, efKey: 'binder', km: 0},
-      {name: '', pct: 0, efKey: 'aggregate', km: 0}
+      {name: '', pct: 0, efKey: '', km: 0},
+      {name: '', pct: 0, efKey: '', km: 0}
     ]
   },
   flatpaver: {
@@ -814,8 +810,8 @@ const PRODUCTS = {
     mass: 0, elecKgKg: 0,
     grid: '', processYield: 100, outbound: 0, solarKw: 0, a5ElecKgKg: 0,
     rawMaterials: [
-      {name: '', pct: 0, efKey: 'binder', km: 0},
-      {name: '', pct: 0, efKey: 'aggregate', km: 0}
+      {name: '', pct: 0, efKey: '', km: 0},
+      {name: '', pct: 0, efKey: '', km: 0}
     ]
   }
 };
@@ -842,7 +838,7 @@ function calculate(p) {
   let a1 = 0, a2 = 0;
   const rmContribs = [];
   p.rawMaterials.forEach((rm, idx) => {
-    const ef     = EF.rm[rm.efKey] || EF.rm.aggregate;
+    const ef     = rm.efKey ? (EF.rm[rm.efKey] || EF.rm.aggregate) : 0;
     const mass   = p.mass * (rm.pct / 100) * yf;
     const a1c    = mass * ef;
     const a2c    = mass * (rm.km || 0) * EF.truck;
@@ -937,21 +933,17 @@ function renderRmSliders() {
           style="flex-shrink:0;width:24px;height:24px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink-faint);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;${state.rawMaterials.length<=1?'opacity:.25;pointer-events:none':''}"
         >×</button>
       </div>
-      <div style="display:flex;gap:8px;margin-bottom:4px">
-        <span class="rm-field-lbl">Raw material name</span>
-        <span class="rm-field-lbl">Raw material category</span>
-        <span class="rm-field-lbl">Transport distance (km)</span>
-      </div>
-      <div style="display:flex;align-items:stretch;gap:8px;margin-bottom:13px">
+      <div style="display:flex;align-items:stretch;gap:8px;margin-bottom:11px">
         <input type="text" class="rm-name-inp" data-idx="${i}"
           value="${escH(rm.name)}"
           placeholder="Insert raw material name here"
           style="flex:1 1 0;min-width:0;font-family:'Google Sans Flex',sans-serif;font-size:12px;font-weight:500;color:var(--ms-navy);background:var(--card);border:1.5px solid var(--ms-lime);border-radius:5px;outline:none;padding:8px 10px"/>
         <select class="rm-ef-sel" data-idx="${i}" title="Select the raw material category — this sets the emission factor"
-          style="flex:1 1 0;min-width:0;width:auto;margin-top:0;font-size:12px;padding:8px 28px 8px 10px;color:var(--ink);border:1.5px solid var(--ms-lime);border-radius:5px">
-          ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
+          style="flex:1 1 0;min-width:0;width:auto;margin-top:0;font-size:12px;padding:8px 28px 8px 10px;color:${rm.efKey?'var(--ink)':'var(--ink-faint)'};border:1.5px solid var(--ms-lime);border-radius:5px">
+          <option value="" disabled ${!rm.efKey?'selected':''}>Select raw material category from here</option>
+          ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" style="color:var(--ink)" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
         </select>
-        <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Insert transport distance in km"
+        <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Transport distance in km"
           style="flex:1 1 0;min-width:0;font-family:'Google Sans Flex',sans-serif;font-size:12px;font-weight:500;color:var(--ms-navy);background:var(--card);border:1.5px solid var(--ms-lime);border-radius:5px;outline:none;padding:8px 10px"/>
       </div>
       <div class="ctrl-row">
@@ -1031,7 +1023,7 @@ $('rmSliders').addEventListener('click', e => {
 $('addRmBtn').addEventListener('click', () => {
   const n = state.rawMaterials.length + 1;
   const rem = Math.max(0, 100 - state.rawMaterials.reduce((s,r)=>s+r.pct,0));
-  state.rawMaterials.push({name:'', pct:rem, efKey:'aggregate', km:0});
+  state.rawMaterials.push({name:'', pct:rem, efKey:'', km:0});
   renderRmSliders(); render();
 });
 
@@ -1172,9 +1164,9 @@ function render() {
     mbox.appendChild(row);
 
     if(m.tag==='A1' && r.rmContribs.length){
-      row.classList.add('a1-toggle');
+      row.classList.add('a1-toggle','collapsed');
       row.querySelector('.mod-bar-name').innerHTML = row.querySelector('.mod-bar-name').textContent + '<span class="a1-arrow">&#9660;</span>';
-      const sub = document.createElement('div'); sub.className='a1-breakdown';
+      const sub = document.createElement('div'); sub.className='a1-breakdown collapsed';
       row.addEventListener('click', ()=>{
         row.classList.toggle('collapsed');
         sub.classList.toggle('collapsed');
