@@ -216,9 +216,14 @@ input[type="range"]::-moz-range-thumb{
 .slider-help{font-size:11px;color:var(--ms-blue);margin-top:3px;font-style:italic}
 .slider-line{display:flex;align-items:center;gap:9px;margin-top:4px}
 .slider-line input[type=range]{flex:1;min-width:0;margin:0}
-.slider-end{font-family:'Google Sans Flex',sans-serif;font-size:10.5px;font-weight:600;color:var(--ms-blue);white-space:nowrap;flex-shrink:0}
+.slider-end{font-family:'Google Sans Flex',sans-serif;font-size:10.5px;font-weight:600;color:var(--ms-blue);white-space:nowrap;flex-shrink:0;display:inline-flex;flex-direction:column;align-items:center;line-height:1.15}
+.se-sub{font-weight:500;font-size:9px;color:var(--ink-faint)}
 .in2{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;align-items:start}
 @media(max-width:640px){.in2{grid-template-columns:1fr}}
+.pp-split{gap:0}
+.pp-split > :first-child{padding-right:18px;border-right:1.5px solid var(--line)}
+.pp-split > :last-child{padding-left:18px}
+@media(max-width:640px){.pp-split{gap:14px}.pp-split > :first-child{border-right:none;padding-right:0}.pp-split > :last-child{padding-left:0}}
 .elec-grid2{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:4px}
 .eg-left{padding-right:18px;border-right:1.5px solid var(--line)}
 .eg-right{padding-left:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
@@ -520,7 +525,7 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
       <!-- PRODUCT TYPE + PROPERTIES side by side -->
       <div class="panel" style="margin-bottom:14px">
         <div class="param-block">
-          <div class="in2">
+          <div class="in2 pp-split">
             <div>
               <div class="sec-strip">
                 <span class="sec-strip-label">Product Type</span>
@@ -544,7 +549,7 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
                   <span class="ctrl-lbl" style="display:flex;align-items:center;gap:6px">Density (kg/m³)<span class="info-ic">i<span class="info-tip">Mass per cubic metre of the finished product. Drag the slider to set it — from lightweight to a dense block.</span></span></span>
                   <span class="ctrl-badge" id="d-mass">0 kg/m³</span>
                 </div>
-                <div class="slider-line"><span class="slider-end">0 · light</span><input type="range" id="s-mass" min="0" max="250" step="5" value="0"/><span class="slider-end">250 · dense</span></div>
+                <div class="slider-line"><span class="slider-end">0<span class="se-sub">(light)</span></span><input type="range" id="s-mass" min="0" max="500" step="5" value="0"/><span class="slider-end">500<span class="se-sub">(dense)</span></span></div>
               </div>
             </div>
           </div>
@@ -655,7 +660,7 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
                 <span class="ctrl-lbl">Raw material wastage rate</span>
                 <span class="ctrl-badge" id="d-yield">0%</span>
               </div>
-              <div class="slider-line"><span class="slider-end">0% · none</span><input type="range" id="s-yield" min="0" max="30" step="1" value="0"/><span class="slider-end">30% · high</span></div>
+              <div class="slider-line"><span class="slider-end">0%<span class="se-sub">(none)</span></span><input type="range" id="s-yield" min="0" max="30" step="1" value="0"/><span class="slider-end">30%<span class="se-sub">(high)</span></span></div>
             </div>
           </div>
         </div>
