@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F7F8F6; --card:#FFFFFF; --ink:#1F2D3D;
+  --bg:#FFFFFF; --card:#FFFFFF; --ink:#1F2D3D;
   --ink-soft:#2E4F75; --ink-faint:#5A7FA0;
   --line:#E2E6E0; --line-soft:#F0F2EE;
   --ms-blue:#2E4F75;
@@ -259,7 +259,7 @@ input[type="range"]::-moz-range-thumb{
 }
 
 /* ══ RAW MATERIAL TOTAL STATUS BANNER ══ */
-.rm-status{margin-top:12px;border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--line-soft);transition:all .15s}
+.rm-status{margin-top:12px;border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--card);transition:all .15s}
 .rm-status-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px}
 .rm-status-label{font-size:12px;font-weight:600;color:var(--ms-navy);display:flex;align-items:center;gap:6px}
 .rm-status-total{font-family:'Google Sans Flex',sans-serif;font-size:18px;font-weight:700;color:var(--ms-navy);font-variant-numeric:tabular-nums;flex-shrink:0}
@@ -421,7 +421,7 @@ select:focus,
 .total-num{font-family:'Google Sans Flex',sans-serif;font-size:clamp(26px,3.6vw,36px);font-weight:700;line-height:1;letter-spacing:-.015em;font-variant-numeric:tabular-nums;color:#fff}
 .total-unit{font-family:'Google Sans Flex',sans-serif;font-size:12.5px;color:#fff;font-weight:500;margin-top:7px;letter-spacing:.02em}
 .chart-sec{padding:10px 16px 12px}
-.mod-bar-strip{display:flex;align-items:center;gap:10px;padding:9px 29px;background:var(--line-soft);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'Google Sans Flex',sans-serif}
+.mod-bar-strip{display:flex;align-items:center;gap:10px;padding:9px 29px;background:var(--card);border-top:2px solid var(--ms-blue);border-bottom:1px solid var(--line);font-family:'Google Sans Flex',sans-serif}
 .mod-bar-strip .mbs-title{flex:1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-navy);white-space:nowrap}
 .mod-bar-strip .mbs-col{text-align:center;white-space:nowrap;font-size:12px;font-weight:700;color:var(--ms-blue)}
 .mod-bar-strip .mbs-col-val{width:86px;border-left:1px solid var(--line);padding:0 4px;box-sizing:content-box}
@@ -447,7 +447,7 @@ select:focus,
 .a1-toggle{cursor:pointer}
 .a1-toggle .a1-arrow{display:inline-block;transition:transform .2s;font-size:12px;margin-left:6px;color:var(--ms-blue)}
 .a1-toggle.collapsed .a1-arrow{transform:rotate(-90deg)}
-.a1-sub-row{display:flex;align-items:center;gap:10px;margin:0 0 5px 22px;padding:7px 12px 7px 11px;background:var(--line-soft);border:1px solid var(--line);border-radius:7px;box-shadow:inset 3px 0 0 var(--a1);font-size:11.5px}
+.a1-sub-row{display:flex;align-items:center;gap:10px;margin:0 0 5px 22px;padding:7px 12px 7px 11px;background:var(--card);border:1px solid var(--line);border-radius:7px;box-shadow:inset 3px 0 0 var(--a1);font-size:11.5px}
 .a1-sub-row:first-child{margin-top:4px}
 .a1-sub-row:last-child{margin-bottom:7px}
 .a1-sub-name{flex-shrink:0;width:150px;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);font-weight:600;font-size:11.5px}
@@ -939,7 +939,7 @@ function renderRmSliders() {
   state.rawMaterials.forEach((rm, i) => {
     const div = document.createElement('div');
     div.className = 'ctrl';
-    div.style.cssText = 'border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:#FAFBF9';
+    div.style.cssText = 'border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:10px;background:#FFFFFF';
     div.innerHTML = `
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
         <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ms-blue)">Raw Material ${i+1}</span>
