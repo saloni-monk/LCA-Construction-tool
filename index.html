@@ -286,13 +286,21 @@ input[type="range"]::-moz-range-thumb{
 
 /* ══ COMPACT MODE ══ */
 body.tool-mode .param-block{padding:9px 14px 8px}
-/* module sections as distinct cards */
+/* module sections as distinct cards with a coloured left accent */
 body.tool-mode .param-block[data-module]{
+  position:relative;overflow:hidden;
   border:1.5px solid var(--line);border-bottom:1.5px solid var(--line);
-  border-radius:11px;background:#EEF3EC;
-  padding:12px 15px 13px;margin-bottom:13px;
+  border-radius:11px;background:var(--card);
+  padding:12px 15px 13px 18px;margin-bottom:13px;
   box-shadow:0 1px 3px rgba(33,58,87,.05);
 }
+body.tool-mode .param-block[data-module]::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ms-blue);
+}
+body.tool-mode .param-block[data-module="a1"]::before{background:linear-gradient(180deg,var(--a1) 0 50%,var(--a2) 50% 100%)}
+body.tool-mode .param-block[data-module="a3"]::before{background:var(--a3)}
+body.tool-mode .param-block[data-module="a4"]::before{background:var(--a4)}
+body.tool-mode .param-block[data-module="a5"]::before{background:var(--a5)}
 body.tool-mode .param-block[data-module="a3"] .elec-box{border:none;background:transparent;padding:0;border-radius:0}
 body.tool-mode .sec-strip{margin-bottom:8px}
 body.tool-mode .ctrl{margin-bottom:10px}
