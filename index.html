@@ -482,6 +482,50 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
   text-transform:uppercase;transition:all .15s;margin-top:2px;
 }
 .add-rm-btn:hover{background:rgba(61,90,128,.06)}
+
+/* ══ MOBILE / PHONE ══ */
+@media(max-width:620px){
+  html,body{overflow-x:hidden}
+  body.tool-mode{overflow-x:hidden;overflow-y:auto}
+  .container{max-width:100%;overflow-x:hidden}
+  .tool-col-inputs,.tool-col-results,.panel,.param-block,.in2 > *,.elec-grid2 > *{min-width:0}
+  .in2,.elec-grid2,.eg-right{grid-template-columns:1fr}
+  .eg-left{border-right:none;border-bottom:1.5px solid var(--line);padding-right:0;padding-bottom:12px}
+  .eg-right{padding-left:0;padding-top:12px}
+  .masthead{height:auto;min-height:54px;padding:8px 14px;gap:10px;flex-wrap:wrap}
+  .mh-brand{gap:10px}
+  .mh-logo img{height:28px}
+  .mh-title{white-space:normal;font-size:17px;line-height:1.12}
+  .mh-title > span:last-child{font-size:10px !important;margin-top:3px !important}
+  .tool-grid{padding:10px}
+  .col-header{font-size:13px;padding:10px 14px}
+  .reset-btn{font-size:8px;padding:4px 8px}
+  body.tool-mode select{padding:9px 30px 9px 10px}
+  /* stack the raw-material name / category / transport boxes */
+  .rm-fields{flex-direction:column}
+  /* keep slider value chip from pushing off-screen */
+  .slider-line{flex-wrap:wrap}
+  /* results module rows: tighten columns to fit narrow screens */
+  .chart-sec{padding:10px 10px 12px}
+  .mod-bar-strip{padding:9px 10px;gap:6px}
+  .mod-bar-row{gap:6px;padding:7px 8px}
+  .mod-bar-head{width:94px}
+  .mod-bar-tag{width:24px}
+  .mod-bar-name{font-size:10px;overflow-wrap:break-word;word-break:break-word;line-height:1.15}
+  .mod-bar-strip .mbs-title{white-space:normal;min-width:0;font-size:10px;letter-spacing:.03em;line-height:1.2}
+  .mod-bar-strip .mbs-col{white-space:normal;font-size:9px;line-height:1.1}
+  .mod-bar-val{width:46px}
+  .mod-bar-pct{width:44px;font-size:10px}
+  .mod-bar-strip .mbs-col-val{width:46px}
+  .mod-bar-strip .mbs-col-pct{width:44px}
+  .a1-sub-row{margin-left:12px;padding:7px 8px 7px 10px;gap:6px}
+  .a1-sub-name{width:auto;flex:1;min-width:34px}
+  .a1-sub-val{width:46px}
+  .a1-sub-pct{width:44px}
+  .total-num{font-size:clamp(22px,7vw,30px)}
+  .total-lbl{font-size:9px;letter-spacing:.04em}
+  .total-unit{font-size:9.5px}
+}
 </style>
 </head>
 <body>
@@ -952,7 +996,7 @@ function renderRmSliders() {
           style="flex-shrink:0;width:24px;height:24px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink-faint);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;${state.rawMaterials.length<=1?'opacity:.25;pointer-events:none':''}"
         >×</button>
       </div>
-      <div style="display:flex;align-items:stretch;gap:8px;margin-bottom:11px">
+      <div class="rm-fields" style="display:flex;align-items:stretch;gap:8px;margin-bottom:11px">
         <input type="text" class="rm-name-inp" data-idx="${i}"
           value="${escH(rm.name)}"
           placeholder="Insert raw material name here"
