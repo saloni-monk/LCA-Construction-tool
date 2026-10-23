@@ -1010,7 +1010,7 @@ function renderRmSliders() {
           <option value="" disabled ${!rm.efKey?'selected':''}>Select raw material category from here</option>
           ${RM_EF_KEYS.map((k,j)=>`<option value="${k}" style="color:var(--ink)" ${rm.efKey===k?'selected':''}>${RM_EF_LABELS[j]}</option>`).join('')}
         </select>
-        <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Transport distance in km"
+        <input type="number" class="rm-km-inp" data-idx="${i}" min="0" max="2000" step="5" value="${rm.km ? rm.km : ''}" placeholder="Enter transport distance in km"
           style="flex:1 1 0;min-width:0;font-family:'Google Sans Flex',sans-serif;font-size:12px;font-weight:500;color:var(--ms-navy);background:var(--card);border:1.5px solid var(--ms-lime);border-radius:5px;outline:none;padding:8px 10px"/>
       </div>
       <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ms-navy);margin-bottom:2px">Content share${infoIcon('Share of this material in the product mix. Drag the slider to set it — all materials should add up to 100%.')}</div>
