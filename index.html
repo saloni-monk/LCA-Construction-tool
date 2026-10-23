@@ -233,6 +233,10 @@ input[type="range"]::-moz-range-thumb{
 }
 .tp-row .rm-km-inp:focus{background:#fff;outline:2px solid var(--ms-blue)}
 .tp-row .rm-km-inp::placeholder{font-weight:500;color:var(--ink-faint);font-size:13px;text-align:left;font-family:'Google Sans Flex',sans-serif}
+/* unified instruction/placeholder text inside green-outlined fields */
+.rm-name-inp::placeholder,.rm-km-inp::placeholder,.solar-kw-input::placeholder{
+  color:var(--ink-faint);font-family:'Google Sans Flex',sans-serif;font-weight:500;opacity:1;
+}
 .tp-unit{flex-shrink:0;font-family:'Google Sans Flex',sans-serif;font-size:11px;font-weight:600;color:var(--ink-soft)}
 
 /* ══ INFO (i) ICON + TOOLTIP ══ */
@@ -669,7 +673,7 @@ footer em{font-family:'Google Sans Flex',sans-serif;font-style:italic}
               <div class="eg-right">
                 <div>
                   <div class="grid-lbl" style="margin:0 0 5px">Grid Region</div>
-                  <select id="s-grid" style="width:100%;margin-top:0">
+                  <select id="s-grid" style="width:100%;margin-top:0;color:var(--ink-faint)">
                     <option value="" selected disabled>Select grid region…</option>
                     <option value="1.365165">All India (Unified Grid)</option>
                     <option value="1.365165">Western Grid</option>
@@ -1139,6 +1143,7 @@ function loadUI() {
   $('s-elec-kg').value  = state.elecKgKg;
   $('elec-pill').textContent = state.elecKgKg.toFixed(2) + ' kWh/kg';
   $('s-grid').value     = state.grid;
+  $('s-grid').style.color = state.grid ? 'var(--ink)' : 'var(--ink-faint)';
   $('sol-kw').value     = state.solarKw ? state.solarKw : '';
   ['s-mass','s-yield','s-outbound','s-elec-kg','s-a5elec'].forEach(id => updateSliderFill($(id)));
   renderRmSliders();
@@ -1174,7 +1179,7 @@ $('s-yield').addEventListener('input', e => { const w=+e.target.value; state.pro
 $('s-outbound').addEventListener('input', e => { state.outbound=+e.target.value; dp('d-out',state.outbound+' km'); updateSliderFill(e.target); render(); });
 $('s-elec-kg').addEventListener('input', e => { state.elecKgKg=parseFloat(e.target.value); updateSliderFill(e.target); updateSolarUI(); render(); });
 $('s-a5elec').addEventListener('input', e => { state.a5ElecKgKg=parseFloat(e.target.value)||0; const v=state.a5ElecKgKg.toFixed(2); $('a5-pill').textContent=v+' kWh/kg'; updateSliderFill(e.target); render(); });
-$('s-grid').addEventListener('change', e => { state.grid=e.target.value; updateSolarUI(); render(); });
+$('s-grid').addEventListener('change', e => { state.grid=e.target.value; e.target.style.color = e.target.value ? 'var(--ink)' : 'var(--ink-faint)'; updateSolarUI(); render(); });
 $('sol-kw').addEventListener('input', e => { state.solarKw=parseFloat(e.target.value)||0; updateSolarUI(); render(); });
 $('resetBtn').addEventListener('click', () => { setProduct(activeKey); $('s-product').value=activeKey; loadUI(); render(); });
 
